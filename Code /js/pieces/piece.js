@@ -42,7 +42,7 @@ class Piece {
 
     // console.log(this.curSquare);
     this.curSquare.square.isOccupied = true;
-    this.curSquare.square.pieceOccupying = this.type;
+    this.curSquare.square.pieceOccupying = `${this.color} ${this.type}`;
     this.#position = { x: square.xCor, y: square.yCor };
   }
   getName() {

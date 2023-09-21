@@ -19,5 +19,18 @@ class Rook extends Piece {
       return [7, x];
     }
   }
+  getAvailableSquares(chessboard) {
+    return chessboard
+      .getSquares()
+      .flat()
+      .filter(
+        (square) =>
+          (square.column === this.curSquare.column &&
+            square.row !== this.curSquare.row) ||
+          (square.row === this.curSquare.row &&
+            square.column !== this.curSquare.column)
+      )
+      .map((square) => square.element);
+  }
 }
 export default Rook;

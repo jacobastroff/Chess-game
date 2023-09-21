@@ -30,7 +30,7 @@ class ChessBoard {
           ];
         row_squares.push({
           column: square,
-          row: square,
+          row: row,
           xCor:
             latest_square.getBoundingClientRect().x +
             latest_square.getBoundingClientRect().width / 2,

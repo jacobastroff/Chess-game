@@ -33,7 +33,9 @@ body {
 .square {
   width: 6.5rem;
   height: 6.5rem;
+  transition: all 0.3s;
 }
+
 .black-square {
   background-color: #054175;
 }
