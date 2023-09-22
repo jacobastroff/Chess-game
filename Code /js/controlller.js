@@ -16,9 +16,9 @@ black_pieces.forEach((piece) =>
     chessboard.getSquares()[piece.startingCoord[0]][piece.startingCoord[1]]
   )
 );
-console.log(chessboard.getSquares());
+// console.log(chessboard.getSquares());
 console.log(
-  black_pieces
+  white_pieces
     .find((piece) => piece.type === "rook" && piece.curSquare.column === 8)
     .getAvailableSquares(chessboard)
 );
