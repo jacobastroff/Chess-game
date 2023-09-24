@@ -7,6 +7,7 @@ class Piece {
   #el;
   curSquare;
   #parentEl = document.querySelector(".chess-board");
+  availableSquares = [];
   constructor(color) {
     this.color = color;
   }
@@ -48,5 +49,31 @@ class Piece {
   getName() {
     return this.type;
   }
+
+  getAvailbleSquaresPiece(sqauresFourDirections) {
+    const availableSquares = [];
+    sqauresFourDirections.forEach((dimension) => {
+      console.log(dimension);
+      for (const square of dimension) {
+        if (!square.isOccupied) {
+          // availableSquares.push(square)
+          availableSquares.push(square);
+        } else {
+          // console.log(this);
+          if (!square.pieceOccupying.startsWith(`${this.color}`)) {
+            availableSquares.push(square);
+          }
+          break;
+        }
+      }
+    });
+    return availableSquares.flat();
+  }
+  isCheckingKing(availableSquares) {
+    return availableSquares.some((square) =>
+      square.pieceOccupying.endsWith("king")
+    );
+  }
 }
-export default Piece;
+
+export { Piece };

@@ -1,4 +1,4 @@
-import Piece from "./piece.js";
+import { Piece } from "./piece.js";
 class Bishop extends Piece {
   constructor(color, side) {
     super(color);
@@ -85,23 +85,7 @@ class Bishop extends Piece {
     console.log(allSquaresByFourDirections);
     // console.log(this, allSquaresByDirection[3]);
 
-    const availableSquares = [];
-    allSquaresByFourDirections.forEach((dimension) => {
-      console.log(dimension);
-      for (const square of dimension) {
-        if (!square.isOccupied) {
-          // availableSquares.push(square)
-          availableSquares.push(square.element);
-        } else {
-          // console.log(this);
-          if (!square.pieceOccupying.startsWith(`${this.color}`)) {
-            availableSquares.push(square.element);
-          }
-          break;
-        }
-      }
-    });
-    return availableSquares.flat();
+    return this.getAvailbleSquaresPiece(allSquaresByFourDirections);
   }
 }
 export default Bishop;

@@ -1,0 +1,7 @@
+@media (max-width: 30em) {
+  .square,
+  .piece {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+}

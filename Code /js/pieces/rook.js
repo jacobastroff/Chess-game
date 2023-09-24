@@ -1,4 +1,4 @@
-import Piece from "./piece.js";
+import { Piece } from "./piece.js";
 class Rook extends Piece {
   #startingCoord = { x: "", y: "" };
   constructor(color, side) {
@@ -53,23 +53,7 @@ class Rook extends Piece {
     ];
     // console.log(this, allSquaresByDirection[3]);
 
-    const availableSquares = [];
-    allSquaresByDirection.forEach((dimension) => {
-      console.log(dimension);
-      for (const square of dimension) {
-        if (!square.isOccupied) {
-          // availableSquares.push(square)
-          availableSquares.push(square.element);
-        } else {
-          // console.log(this);
-          if (!square.pieceOccupying.startsWith(`${this.color}`)) {
-            availableSquares.push(square.element);
-          }
-          break;
-        }
-      }
-    });
-    return availableSquares;
+    return this.getAvailbleSquaresPiece(allSquaresByDirection);
   }
 }
 export default Rook;

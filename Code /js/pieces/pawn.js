@@ -1,4 +1,4 @@
-import Piece from "./piece.js";
+import { Piece } from "./piece.js";
 class Pawn extends Piece {
   constructor(color, startingCoordX) {
     super(color);

@@ -34,16 +34,9 @@ console.log(
 // );
 
 // TEST BISHOP
-// white_pieces.find(
-//   (piece) => piece.type === "bishop" && piece.curSquare.column === 6
-// );
-// // console.log(
-// //   white_pieces
-// //     .find((piece) => piece.type === "bishop" && piece.curSquare.column === 6)
-// //     .moveTo(chessboard.getSquares()[3][4])
-// // );
-// console.log(
-//   white_pieces
-//     .find((piece) => piece.type === "bishop" && piece.curSquare.column === 6)
-//     .getAvailableSquares(chessboard)
-// );
+const bishop = white_pieces.find(
+  (piece) => piece.type === "bishop" && piece.curSquare.column === 6
+);
+console.log(bishop.moveTo(chessboard.getSquares()[5][6]));
+console.log(bishop.getAvailableSquares(chessboard));
+console.log(bishop.isCheckingKing(bishop.getAvailableSquares(chessboard)));

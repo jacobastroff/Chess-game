@@ -1,4 +1,4 @@
-import Piece from "./piece.js";
+import { Piece } from "./piece.js";
 class Knight extends Piece {
   constructor(color, side) {
     super(color);
