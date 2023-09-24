@@ -20,37 +20,30 @@ class Rook extends Piece {
     }
   }
   getAvailableSquares(chessboard) {
+    const allSquares = chessboard.getSquares().flat();
     const allSquaresByDirection = [
-      chessboard
-        .getSquares()
-        .flat()
+      allSquares
         .filter(
           (square) =>
             square.column === this.curSquare.column &&
             square.row < this.curSquare.row
         )
         .sort((a, b) => b.row - a.row),
-      chessboard
-        .getSquares()
-        .flat()
+      allSquares
         .filter(
           (square) =>
             square.column === this.curSquare.column &&
             square.row > this.curSquare.row
         )
         .sort((a, b) => a.row - b.row),
-      chessboard
-        .getSquares()
-        .flat()
+      allSquares
         .filter(
           (square) =>
             square.row === this.curSquare.row &&
             square.column < this.curSquare.column
         )
         .sort((a, b) => b.column - a.column),
-      chessboard
-        .getSquares()
-        .flat()
+      allSquares
         .filter(
           (square) =>
             square.row === this.curSquare.row &&

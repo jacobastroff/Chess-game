@@ -37,8 +37,8 @@ class Piece {
       };
     }
     // console.log(this.curSquare);
-    this.#el.style.top = `${square.yCor}px`;
-    this.#el.style.left = `${square.xCor}px`;
+    this.#el.style.top = `${square.yCor / 10}rem`;
+    this.#el.style.left = `${square.xCor / 10}rem`;
 
     // console.log(this.curSquare);
     this.curSquare.square.isOccupied = true;

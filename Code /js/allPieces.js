@@ -24,8 +24,7 @@ const white_pieces = [
   new Bishop("white", "left"),
   new Queen("white"),
   new King("white"),
-  // ...Array.from(new Array(8), (_, i) => new Pawn("white", i)),
-  ...Array.from(new Array(7), (_, i) => new Pawn("white", i)),
+  ...Array.from(new Array(8), (_, i) => new Pawn("white", i)),
 ];
 
 export { white_pieces, black_pieces };
