@@ -83,12 +83,14 @@ const black_pawn = black_pieces.find(
 // console.log(pawn.getAvailableSquares(chessboard));
 //EN PASSANT
 // console.log(pawn.firstMove);
-pawn.moveTo(chessboard.getSquares()[4][4], chessboard);
+// pawn.moveTo(chessboard.getSquares()[4][4], chessboard);
 // console.log(pawn.en_passant_status, pawn.firstMove);
 // console.log(black_pawn.firstMove, black_pawn.en_passant_status);
-black_pawn.moveTo(chessboard.getSquares()[4][3], chessboard);
-console.log(black_pawn.en_passant_status, black_pawn.firstMove);
-console.log(chessboard.getSquares());
+// black_pawn.moveTo(chessboard.getSquares()[4][3], chessboard);
+// console.log(black_pawn.en_passant_status, black_pawn.firstMove);
+// console.log(chessboard.getSquares());
 
-console.log(pawn.getAvailableSquares(chessboard));
-console.log(pawn.getAvailableSquares(chessboard));
+// console.log(pawn.getAvailableSquares(chessboard));
+// console.log(pawn.getAvailableSquares(chessboard));
+
+//KING
