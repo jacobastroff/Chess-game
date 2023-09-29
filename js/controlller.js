@@ -58,10 +58,21 @@ console.log(
 // console.log(knight.isCheckingKing(knight.getAvailableSquares(chessboard)));
 
 //QUEEN
-const queen = white_pieces.find((piece) => piece.type === "queen");
-console.log(queen);
-console.log(queen.getAvailableSquares(chessboard));
-queen.moveTo(chessboard.getSquares()[5][5]);
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// console.log(queen);
+// console.log(queen.getAvailableSquares(chessboard));
+// queen.moveTo(chessboard.getSquares()[5][5]);
 
-console.log(queen.getAvailableSquares(chessboard));
-console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(queen.getAvailableSquares(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+
+// PAWN
+const pawn = white_pieces.find(
+  (piece) => piece.type === "pawn" && piece.curSquare.column === 2
+);
+const black_pawn = black_pieces.find(
+  (piece) => piece.type === "pawn" && piece.curSquare.column === 1
+);
+console.log(pawn);
+black_pawn.moveTo(chessboard.getSquares()[2][0]);
+console.log(pawn.getAvailableSquares(chessboard));

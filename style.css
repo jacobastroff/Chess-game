@@ -40,7 +40,9 @@ body {
   cursor: pointer;
 }
 .black-square {
-  background-color: #054175;
+  /* ORIGINAL COLOR */
+  /* background-color: #054175; */
+  background-color: #0669c0;
 }
 .white-square {
   background-color: #fff;
