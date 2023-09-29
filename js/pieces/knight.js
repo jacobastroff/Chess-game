@@ -18,5 +18,51 @@ class Knight extends Piece {
       return [7, x];
     }
   }
+  getAvailableSquares(chessboard) {
+    const allSquares = chessboard.getSquares().flat();
+    const allPotentialSqaures = [];
+    for (let i = -1; i <= 1; i += 2) {
+      console.log(i);
+      allPotentialSqaures.push(
+        allSquares.find(
+          (square) =>
+            square.row === this.curSquare.row + i &&
+            square.column === this.curSquare.column - 2
+        )
+      );
+      allPotentialSqaures.push(
+        allSquares.find(
+          (square) =>
+            square.row === this.curSquare.row + i &&
+            square.column === this.curSquare.column + 2
+        )
+      );
+      allPotentialSqaures.push(
+        allSquares.find(
+          (square) =>
+            square.row === this.curSquare.row + i * 2 &&
+            square.column === this.curSquare.column + 1
+        )
+      );
+      allPotentialSqaures.push(
+        allSquares.find(
+          (square) =>
+            square.row === this.curSquare.row + i * 2 &&
+            square.column === this.curSquare.column - 1
+        )
+      );
+    }
+    const allRealSquares = [...new Set(allPotentialSqaures)];
+    console.log(allPotentialSqaures);
+    console.log(allRealSquares);
+    // allRealSquares.splice(allRealSquares.indexOf("N/A"));
+    console.log(allRealSquares);
+
+    const allAvailableSquares = allRealSquares
+      .filter((square) => square)
+      .map((square) => [square]);
+    console.log(allAvailableSquares);
+    return this.getAvailbleSquaresPiece(allAvailableSquares);
+  }
 }
 export default Knight;

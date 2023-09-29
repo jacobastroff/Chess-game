@@ -35,7 +35,10 @@ body {
   height: 6.5rem;
   transition: all 0.3s;
 }
-
+.square:hover {
+  background-color: green;
+  cursor: pointer;
+}
 .black-square {
   background-color: #054175;
 }
@@ -50,4 +53,5 @@ body {
   /* background-color: green; */
   transition: all 0.3s;
   background: transparent;
+  pointer-events: none;
 }

@@ -5,6 +5,7 @@ class Piece {
   image;
   type;
   #el;
+  disabled = false;
   curSquare;
   #parentEl = document.querySelector(".chess-board");
   availableSquares = [];
