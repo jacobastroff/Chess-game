@@ -16,12 +16,13 @@ black_pieces.forEach((piece) =>
     chessboard.getSquares()[piece.startingCoord[0]][piece.startingCoord[1]]
   )
 );
+
 // console.log(chessboard.getSquares());
-console.log(
-  white_pieces
-    .find((piece) => piece.type === "rook" && piece.curSquare.column === 8)
-    .getAvailableSquares(chessboard)
-);
+// console.log(
+//   white_pieces
+//     .find((piece) => piece.type === "rook" && piece.curSquare.column === 8)
+//     .getAvailableSquares(chessboard)
+// );
 // TEST ROOK
 // white_pieces.find(
 //   (piece) => piece.type === "rook" && piece.curSquare.column === 8
@@ -71,8 +72,23 @@ const pawn = white_pieces.find(
   (piece) => piece.type === "pawn" && piece.curSquare.column === 2
 );
 const black_pawn = black_pieces.find(
-  (piece) => piece.type === "pawn" && piece.curSquare.column === 1
+  (piece) => piece.type === "pawn" && piece.curSquare.column === 4
 );
-console.log(pawn);
-black_pawn.moveTo(chessboard.getSquares()[2][0]);
+// NORMAL TEST
+// console.log(pawn);
+// // black_pawn.moveTo(chessboard.getSquares()[2][0]);
+// pawn.moveTo(chessboard.getSquares()[6][6]);
+// console.log(pawn.isCheckingKing(pawn.getAvailableSquares(chessboard)));
+
+// console.log(pawn.getAvailableSquares(chessboard));
+//EN PASSANT
+// console.log(pawn.firstMove);
+pawn.moveTo(chessboard.getSquares()[4][4], chessboard);
+// console.log(pawn.en_passant_status, pawn.firstMove);
+// console.log(black_pawn.firstMove, black_pawn.en_passant_status);
+black_pawn.moveTo(chessboard.getSquares()[4][3], chessboard);
+console.log(black_pawn.en_passant_status, black_pawn.firstMove);
+console.log(chessboard.getSquares());
+
+console.log(pawn.getAvailableSquares(chessboard));
 console.log(pawn.getAvailableSquares(chessboard));

@@ -42,7 +42,8 @@ class ChessBoard {
           //NOTE - This is the center of the square - this means that if a piece is rendered here, the top will be at the center, so the piece will need to be translated 50% and -50% in order to be centered
           element: latest_square,
           isOccupied: false,
-          pieceOccupying: "",
+          pieceOccupyingName: "",
+          piece: undefined,
         });
       }
       this.#sqaures.unshift(row_squares);

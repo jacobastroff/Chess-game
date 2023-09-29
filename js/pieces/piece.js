@@ -20,18 +20,33 @@ class Piece {
         />`;
     this.#parentEl.insertAdjacentHTML("afterbegin", html);
     this.#el = this.#parentEl.querySelector(".piece");
-    console.log(this.#el);
+    // console.log(this.#el);
     this.curSquare = {
       row: square.row,
       column: square.column,
       square: square,
     };
-    this.moveTo(square, true);
+    this.moveTo(square, undefined, true);
   }
-  moveTo(square, isInit = false) {
+  moveTo(square, chessboard = undefined, isInit = false) {
     if (!isInit) {
+      // console.log(this.has_caused_en_passant);
       this.curSquare.square.isOccupied = false;
-      this.curSquare.square.pieceOccupying = "";
+      this.curSquare.square.pieceOccupyingName = "";
+      this.curSquare.square.piece = undefined;
+      if (this.type === "pawn") {
+        const upDown = this.color === "white" ? 1 : -1;
+        if (
+          this?.firstMove &&
+          square.row === this?.curSquare?.row + 2 * upDown &&
+          this.has_caused_en_passant(square, chessboard)
+        ) {
+          this.en_passant_status = true;
+        } else {
+          this.en_passant_status = false;
+        }
+        this.firstMove = false;
+      }
       this.curSquare = {
         row: square.row,
         column: square.column,
@@ -44,7 +59,8 @@ class Piece {
 
     // console.log(this.curSquare);
     this.curSquare.square.isOccupied = true;
-    this.curSquare.square.pieceOccupying = `${this.color} ${this.type}`;
+    this.curSquare.square.pieceOccupyingName = `${this.color} ${this.type}`;
+    this.curSquare.square.piece = this;
     this.#position = { x: square.xCor, y: square.yCor };
   }
   getName() {
@@ -54,14 +70,14 @@ class Piece {
   getAvailbleSquaresPiece(sqauresFourDirections) {
     const availableSquares = [];
     sqauresFourDirections.forEach((dimension) => {
-      console.log(dimension);
+      // console.log(dimension);
       for (const square of dimension) {
         if (!square.isOccupied) {
           // availableSquares.push(square)
           availableSquares.push(square);
         } else {
           // console.log(this);
-          if (!square.pieceOccupying.startsWith(`${this.color}`)) {
+          if (!square.pieceOccupyingName.startsWith(`${this.color}`)) {
             availableSquares.push(square);
           }
           break;
@@ -72,7 +88,7 @@ class Piece {
   }
   isCheckingKing(availableSquares) {
     return availableSquares.some((square) =>
-      square.pieceOccupying.endsWith("king")
+      square.pieceOccupyingName.endsWith("king")
     );
   }
 }
