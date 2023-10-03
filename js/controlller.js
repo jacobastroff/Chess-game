@@ -152,5 +152,5 @@ console.log(
 // console.log(king);
 // console.log(king.getAvailableSquares(chessboard));
 //DELETIONS
-pawn.delete(white_pieces);
-console.log(white_pieces);
+// pawn.delete(white_pieces);
+// console.log(white_pieces);
