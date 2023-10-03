@@ -94,6 +94,10 @@ class Piece {
   canGoTo(square, availableSquares) {
     return availableSquares.includes(square);
   }
+  delete(group) {
+    group.splice(group.indexOf(this), 1);
+    this.#el.style.display = "none";
+  }
 }
 
 export { Piece };
