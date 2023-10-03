@@ -28,7 +28,7 @@ class Piece {
     };
     this.moveTo(square, undefined, true);
   }
-  moveTo(square, chessboard = undefined, isInit = false) {
+  moveTo(square, chessboard = undefined, isInit = false, isCastling = false) {
     if (!isInit) {
       // console.log(this.has_caused_en_passant);
       this.curSquare.square.isOccupied = false;
@@ -90,6 +90,9 @@ class Piece {
     return availableSquares.some((square) =>
       square.pieceOccupyingName.endsWith("king")
     );
+  }
+  canGoTo(square, availableSquares) {
+    return availableSquares.includes(square);
   }
 }
 

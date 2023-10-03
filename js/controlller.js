@@ -74,6 +74,12 @@ const pawn = white_pieces.find(
 const black_pawn = black_pieces.find(
   (piece) => piece.type === "pawn" && piece.curSquare.column === 4
 );
+console.log(
+  pawn.canGoTo(
+    chessboard.getSquares()[3][1],
+    pawn.getAvailableSquares(chessboard)
+  )
+);
 // NORMAL TEST
 // console.log(pawn);
 // // black_pawn.moveTo(chessboard.getSquares()[2][0]);
@@ -81,12 +87,15 @@ const black_pawn = black_pieces.find(
 // console.log(pawn.isCheckingKing(pawn.getAvailableSquares(chessboard)));
 
 // console.log(pawn.getAvailableSquares(chessboard));
+
 //EN PASSANT
 // console.log(pawn.firstMove);
 // pawn.moveTo(chessboard.getSquares()[4][4], chessboard);
 // console.log(pawn.en_passant_status, pawn.firstMove);
 // console.log(black_pawn.firstMove, black_pawn.en_passant_status);
+// black_pawn.moveTo(chessboard.getSquares()[5][3], chessboard);
 // black_pawn.moveTo(chessboard.getSquares()[4][3], chessboard);
+
 // console.log(black_pawn.en_passant_status, black_pawn.firstMove);
 // console.log(chessboard.getSquares());
 
@@ -94,3 +103,51 @@ const black_pawn = black_pieces.find(
 // console.log(pawn.getAvailableSquares(chessboard));
 
 //KING
+
+//MOVING TRANSITION
+// setTimeout(
+//   () =>
+//     white_pieces
+//       .find((piece) => piece.type === "knight" && piece.curSquare.column === 2)
+//       .moveTo(chessboard.getSquares()[2][2]),
+//   5000
+// );
+//SCHOLARS MATE
+// setTimeout(
+//   () =>
+//     white_pieces
+//       .find((piece) => piece.type === "pawn" && piece.curSquare.column === 5)
+//       .moveTo(chessboard.getSquares()[3][4], chessboard),
+//   5000
+// );
+// setTimeout(
+//   () =>
+//     white_pieces
+//       .find((piece) => piece.type === "queen")
+//       .moveTo(chessboard.getSquares()[4][7], chessboard),
+//   6000
+// );
+// setTimeout(
+//   () =>
+//     white_pieces
+//       .find((piece) => piece.type === "bishop" && piece.curSquare.column === 6)
+//       .moveTo(chessboard.getSquares()[3][2], chessboard),
+//   7000
+// );
+// setTimeout(
+//   () =>
+//     white_pieces
+//       .find((piece) => piece.type === "queen")
+//       .moveTo(chessboard.getSquares()[6][5], chessboard),
+//   8000
+// );
+//KING
+const king = black_pieces.find((piece) => piece.type === "king");
+console.log(king.getOpposingPieces(chessboard));
+console.log(king.isInCheck(chessboard));
+console.log(king.isInCheck(chessboard, chessboard.getSquares()[2][2]));
+// king.moveTo(chessboard.getSquares()[2][2]);
+console.log(king.getAvailableSquares(chessboard));
+king.moveTo(chessboard.getSquares()[4][3]);
+console.log(king);
+console.log(king.getAvailableSquares(chessboard));

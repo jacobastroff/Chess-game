@@ -22,7 +22,7 @@ class Knight extends Piece {
     const allSquares = chessboard.getSquares().flat();
     const allPotentialSqaures = [];
     for (let i = -1; i <= 1; i += 2) {
-      console.log(i);
+      // console.log(i);
       allPotentialSqaures.push(
         allSquares.find(
           (square) =>
@@ -53,15 +53,15 @@ class Knight extends Piece {
       );
     }
     const allRealSquares = [...new Set(allPotentialSqaures)];
-    console.log(allPotentialSqaures);
-    console.log(allRealSquares);
-    // allRealSquares.splice(allRealSquares.indexOf("N/A"));
-    console.log(allRealSquares);
+    // console.log(allPotentialSqaures);
+    // console.log(allRealSquares);
+    //  allRealSquares.splice(allRealSquares.indexOf("N/A"));
+    // console.log(allRealSquares);
 
     const allAvailableSquares = allRealSquares
       .filter((square) => square)
       .map((square) => [square]);
-    console.log(allAvailableSquares);
+    // console.log(allAvailableSquares);
     return this.getAvailbleSquaresPiece(allAvailableSquares);
   }
 }

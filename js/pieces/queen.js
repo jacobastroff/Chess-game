@@ -43,7 +43,7 @@ class Queen extends Piece {
     ];
     const potentialSquaresDiagonal = new Array(2).fill([[], []]);
     for (const [i, upDown] of potentialSquaresDiagonal.entries()) {
-      console.log(upDown);
+      // console.log(upDown);
       if (i === 0) {
         let counter = 0;
         for (let row = this.curSquare.row + 1; row <= 8; row++) {
@@ -64,7 +64,7 @@ class Queen extends Piece {
           counter++;
         }
       } else {
-        console.log(upDown[1]);
+        // console.log(upDown[1]);
 
         let counter = 0;
         for (let row = this.curSquare.row - 1; row >= 1; row--) {
@@ -87,7 +87,7 @@ class Queen extends Piece {
       }
     }
     const allSquaresByDirection = [...new Set(potentialSquaresDiagonal.flat())];
-    console.log(allSquaresByDirection);
+    // console.log(allSquaresByDirection);
     const allSquaresByFourDirections = [
       allSquaresByDirection[0].filter(
         (square) => square?.row > this.curSquare?.row

@@ -21,9 +21,9 @@ class Bishop extends Piece {
   getAvailableSquares(chessboard) {
     const allSquares = chessboard.getSquares().flat();
     const allSquaresByLeftRight = new Array(2).fill([[], []]);
-    console.log(allSquaresByLeftRight);
+    // console.log(allSquaresByLeftRight);
     for (const [i, upDown] of allSquaresByLeftRight.entries()) {
-      console.log(upDown);
+      // console.log(upDown);
       if (i === 0) {
         let counter = 0;
         for (let row = this.curSquare.row + 1; row <= 8; row++) {
@@ -44,7 +44,7 @@ class Bishop extends Piece {
           counter++;
         }
       } else {
-        console.log(upDown[1]);
+        // console.log(upDown[1]);
 
         let counter = 0;
         for (let row = this.curSquare.row - 1; row >= 1; row--) {
@@ -67,7 +67,7 @@ class Bishop extends Piece {
       }
     }
     const allSquaresByDirection = [...new Set(allSquaresByLeftRight.flat())];
-    console.log(allSquaresByDirection);
+    // console.log(allSquaresByDirection);
     const allSquaresByFourDirections = [
       allSquaresByDirection[0].filter(
         (square) => square?.row > this.curSquare?.row
@@ -82,7 +82,7 @@ class Bishop extends Piece {
         (square) => square?.row < this.curSquare?.row
       ),
     ];
-    console.log(allSquaresByFourDirections);
+    // console.log(allSquaresByFourDirections);
     // console.log(this, allSquaresByDirection[3]);
 
     return this.getAvailbleSquaresPiece(allSquaresByFourDirections);
