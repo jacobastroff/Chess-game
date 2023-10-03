@@ -142,12 +142,12 @@ console.log(
 //   8000
 // );
 //KING
-const king = black_pieces.find((piece) => piece.type === "king");
-console.log(king.getOpposingPieces(chessboard));
-console.log(king.isInCheck(chessboard));
-console.log(king.isInCheck(chessboard, chessboard.getSquares()[2][2]));
-// king.moveTo(chessboard.getSquares()[2][2]);
-console.log(king.getAvailableSquares(chessboard));
-king.moveTo(chessboard.getSquares()[4][3]);
-console.log(king);
-console.log(king.getAvailableSquares(chessboard));
+// const king = black_pieces.find((piece) => piece.type === "king");
+// console.log(king.getOpposingPieces(chessboard));
+// console.log(king.isInCheck(chessboard));
+// console.log(king.isInCheck(chessboard, chessboard.getSquares()[2][2]));
+// // king.moveTo(chessboard.getSquares()[2][2]);
+// console.log(king.getAvailableSquares(chessboard));
+// king.moveTo(chessboard.getSquares()[4][3]);
+// console.log(king);
+// console.log(king.getAvailableSquares(chessboard));
