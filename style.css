@@ -39,6 +39,12 @@ body {
   background-color: green;
   cursor: pointer;
 }
+.active-square {
+  background-color: green !important;
+}
+.potential-square {
+  box-shadow: inset 0 0 0 2px orange;
+}
 .black-square {
   /* ORIGINAL COLOR */
   /* background-color: #054175; */

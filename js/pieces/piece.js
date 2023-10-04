@@ -47,6 +47,10 @@ class Piece {
         }
         this.firstMove = false;
       }
+      if (this.type === "king" || this.type === "rook") {
+        this.firstMove = false;
+        this.canCastle = false;
+      }
       this.curSquare = {
         row: square.row,
         column: square.column,
@@ -94,6 +98,19 @@ class Piece {
   canGoTo(square, availableSquares) {
     return availableSquares.includes(square);
   }
+
+  getOpposingPieces(chessboard) {
+    return chessboard
+      .getSquares()
+      .flat()
+      .filter(
+        (square) =>
+          square.isOccupied &&
+          !square.pieceOccupyingName?.startsWith(this.color)
+      )
+      .map((square) => square.piece);
+  }
+
   delete(group) {
     group.splice(group.indexOf(this), 1);
     this.#el.style.display = "none";

@@ -1,6 +1,7 @@
 import { Piece } from "./piece.js";
 class King extends Piece {
-  canCastle = false;
+  // canCastle = false;
+  firstMove = true;
   constructor(color) {
     super(color);
     this.image = `./Assets/${this.color}-king.svg`;
@@ -10,17 +11,7 @@ class King extends Piece {
     if (this.color === "black") return [7, 4];
     else return [0, 4];
   }
-  getOpposingPieces(chessboard) {
-    return chessboard
-      .getSquares()
-      .flat()
-      .filter(
-        (square) =>
-          square.isOccupied &&
-          !square.pieceOccupyingName?.startsWith(this.color)
-      )
-      .map((square) => square.piece);
-  }
+
   getAvailableSquares(chessboard) {
     const allSquares = chessboard.getSquares().flat();
     const potentialSquares = allSquares.filter(
@@ -39,11 +30,12 @@ class King extends Piece {
     return squaresWithoutCheck;
   }
   isInCheck(chessboard, specificSquare = undefined) {
+    console.log(this.getOpposingPieces(chessboard));
     if (!specificSquare) {
       // console.log(this.getOpposingPieces(chessboard));
       return this.getOpposingPieces(chessboard).some((piece) => {
-        // console.log(piece);
-        piece.isCheckingKing(piece.getAvailableSquares(chessboard));
+        console.log(piece);
+        return piece.isCheckingKing(piece.getAvailableSquares(chessboard));
       });
     } else {
       return this.getOpposingPieces(chessboard).some((piece) =>
@@ -51,5 +43,54 @@ class King extends Piece {
       );
     }
   }
+  canCastle(rook, chessboard) {
+    const leftRight =
+      rook.curSquare.column > this.curSquare.column ? "right" : "left";
+    let squaresAvailable;
+    let neededAvailbleSquares;
+    console.log(rook.getAvailableSquares(chessboard), this.curSquare.column);
+    if (leftRight === "right") {
+      squaresAvailable = rook
+        .getAvailableSquares(chessboard)
+        .filter(
+          (square) => square.row === 1 && square.column > this.curSquare.column
+        );
+
+      neededAvailbleSquares = 2;
+    }
+    if (leftRight === "left") {
+      squaresAvailable = rook
+        .getAvailableSquares(chessboard)
+        .filter(
+          (square) => square.row === 1 && square.column < this.curSquare.column
+        );
+      neededAvailbleSquares = 3;
+    }
+    console.log(squaresAvailable, neededAvailbleSquares);
+    if (squaresAvailable.length >= neededAvailbleSquares) {
+      if (this.isInCheck(chessboard)) return false;
+      if (
+        squaresAvailable.some((square) => this.isInCheck(chessboard, square))
+      ) {
+        return false;
+      }
+      if (!rook.firstMove || !this.firstMove) return false;
+      return true;
+    } else {
+      return false;
+    }
+  }
+  castle(rook, chessboard) {
+    const leftRight =
+      rook.curSquare.column > this.curSquare.column ? "right" : "left";
+    if (leftRight === "right") {
+      this.moveTo(chessboard.getSquares()[0][6]);
+      rook.moveTo(chessboard.getSquares()[0][5]);
+    } else {
+      this.moveTo(chessboard.getSquares()[0][2]);
+      rook.moveTo(chessboard.getSquares()[0][3]);
+    }
+  }
 }
+
 export default King;

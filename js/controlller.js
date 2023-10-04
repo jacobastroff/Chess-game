@@ -1,21 +1,26 @@
 import ChessBoard from "./chessboard.js";
 import { white_pieces, black_pieces } from "./allPieces.js";
-
+import chessGameClass from "./view.js";
 //Testing - REMOVE AFTER
-
 const chessboard = new ChessBoard();
-
+const chessGame = new chessGameClass(
+  "white",
+  white_pieces,
+  black_pieces,
+  chessboard
+);
 chessboard.create_board("#054175");
-white_pieces.forEach((piece) =>
+chessGame.white_pieces.forEach((piece) =>
   piece.init(
     chessboard.getSquares()[piece.startingCoord[0]][piece.startingCoord[1]]
   )
 );
-black_pieces.forEach((piece) =>
+chessGame.black_pieces.forEach((piece) =>
   piece.init(
     chessboard.getSquares()[piece.startingCoord[0]][piece.startingCoord[1]]
   )
 );
+chessGame.setup();
 
 // console.log(chessboard.getSquares());
 // console.log(
@@ -68,18 +73,18 @@ black_pieces.forEach((piece) =>
 // console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
 
 // PAWN
-const pawn = white_pieces.find(
-  (piece) => piece.type === "pawn" && piece.curSquare.column === 2
-);
-const black_pawn = black_pieces.find(
-  (piece) => piece.type === "pawn" && piece.curSquare.column === 4
-);
-console.log(
-  pawn.canGoTo(
-    chessboard.getSquares()[3][1],
-    pawn.getAvailableSquares(chessboard)
-  )
-);
+// const pawn = white_pieces.find(
+//   (piece) => piece.type === "pawn" && piece.curSquare.column === 2
+// );
+// const black_pawn = black_pieces.find(
+//   (piece) => piece.type === "pawn" && piece.curSquare.column === 4
+// );
+// console.log(
+//   pawn.canGoTo(
+//     chessboard.getSquares()[3][1],
+//     pawn.getAvailableSquares(chessboard)
+//   )
+// );
 // NORMAL TEST
 // console.log(pawn);
 // // black_pawn.moveTo(chessboard.getSquares()[2][0]);
@@ -154,3 +159,21 @@ console.log(
 //DELETIONS
 // pawn.delete(white_pieces);
 // console.log(white_pieces);
+//CASTLING LOGIC
+// const king = white_pieces.find((piece) => piece.type === "king");
+// console.log(king);
+// const rook = white_pieces.find(
+//   (piece) => piece.curSquare.column === 8 && piece.type === "rook"
+// );
+// const rook2 = white_pieces.find(
+//   (piece) => piece.curSquare.column === 1 && piece.type === "rook"
+// );
+// console.log(king.canCastle(rook2, chessboard));
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[1][3]);
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(king.isInCheck(chessboard));
+// console.log(king.canCastle(rook, chessboard));
+
+//CASTLING ACTION
+// setTimeout(() => king.castle(rook, chessboard), 3000);

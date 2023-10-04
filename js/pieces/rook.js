@@ -1,6 +1,9 @@
 import { Piece } from "./piece.js";
 class Rook extends Piece {
   #startingCoord = { x: "", y: "" };
+  // canCastle = false;
+
+  firstMove = true;
   constructor(color, side) {
     super(color);
     this.image = `./Assets/${this.color}-rook.svg`;
