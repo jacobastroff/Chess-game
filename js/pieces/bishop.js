@@ -18,7 +18,12 @@ class Bishop extends Piece {
       return [7, x];
     }
   }
-  getAvailableSquares(chessboard) {
+  getAvailableSquares(
+    chessboard,
+    squareToBeIgnored = undefined,
+    isPinned = undefined,
+    piecePinning = undefined
+  ) {
     const allSquares = chessboard.getSquares().flat();
     const allSquaresByLeftRight = new Array(2).fill([[], []]);
     // console.log(allSquaresByLeftRight);
@@ -84,8 +89,65 @@ class Bishop extends Piece {
     ];
     // console.log(allSquaresByFourDirections);
     // console.log(this, allSquaresByDirection[3]);
-
-    return this.getAvailbleSquaresPiece(allSquaresByFourDirections);
+    if (
+      !isPinned ||
+      piecePinning.curSquare.column === this.curSquare.column ||
+      piecePinning.curSquare.row === this.curSquare.row
+    ) {
+      return this.getAvailbleSquaresPiece(
+        allSquaresByFourDirections,
+        squareToBeIgnored
+      );
+    } else {
+      if (
+        piecePinning.curSquare.column > this.curSquare.column &&
+        piecePinning.curSquare.row > this.curSquare.row
+      ) {
+        return allSquaresByFourDirections.find((direction) =>
+          direction.every(
+            (square) =>
+              square.column < piecePinning.curSquare.column &&
+              square.row < piecePinning.curSquare.row
+          )
+        );
+      }
+      if (
+        piecePinning.curSquare.column < this.curSquare.column &&
+        piecePinning.curSquare.row < this.curSquare.row
+      ) {
+        return allSquaresByFourDirections.find((direction) =>
+          direction.every(
+            (square) =>
+              square.column > piecePinning.curSquare.column &&
+              square.row > piecePinning.curSquare.row
+          )
+        );
+      }
+      if (
+        piecePinning.curSquare.column > this.curSquare.column &&
+        piecePinning.curSquare.row < this.curSquare.row
+      ) {
+        return allSquaresByFourDirections.find((direction) =>
+          direction.every(
+            (square) =>
+              square.column < piecePinning.curSquare.column &&
+              square.row > piecePinning.curSquare.row
+          )
+        );
+      }
+      if (
+        piecePinning.curSquare.column < this.curSquare.column &&
+        piecePinning.curSquare.row > this.curSquare.row
+      ) {
+        return allSquaresByFourDirections.find((direction) =>
+          direction.every(
+            (square) =>
+              square.column > piecePinning.curSquare.column &&
+              square.row < piecePinning.curSquare.row
+          )
+        );
+      }
+    }
   }
 }
 export default Bishop;

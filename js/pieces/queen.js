@@ -9,7 +9,7 @@ class Queen extends Piece {
     if (this.color === "black") return [7, 3];
     else return [0, 3];
   }
-  getAvailableSquares(chessboard) {
+  getAvailableSquares(chessboard, squareToBeIgnored = undefined) {
     const allSquares = chessboard.getSquares().flat();
     const allSquaresHorizontal = [
       allSquares
@@ -107,7 +107,7 @@ class Queen extends Piece {
     // console.log(this, allSquaresByDirection[3]);
     // console.log(this, allSquaresByDirection[3]);
 
-    return this.getAvailbleSquaresPiece(allMoveableSqaures);
+    return this.getAvailbleSquaresPiece(allMoveableSqaures, squareToBeIgnored);
   }
 }
 export default Queen;

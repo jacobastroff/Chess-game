@@ -91,6 +91,47 @@ class King extends Piece {
       rook.moveTo(chessboard.getSquares()[0][3]);
     }
   }
+  isBehindPinnedPiece(piece, chessboard) {
+    const column = piece.curSquare.column;
+    const piecesMinusPinned = [...this.getSameColorPieces(chessboard)];
+    piecesMinusPinned.splice(piecesMinusPinned.indexOf(piece), 1);
+    console.log(piecesMinusPinned);
+    return this.getOpposingPieces(chessboard).some((opposingPiece) => {
+      return (
+        opposingPiece.canGoTo(
+          piece.curSquare.square,
+          opposingPiece.getAvailableSquares(chessboard)
+        ) &&
+        opposingPiece.isCheckingKing(
+          opposingPiece.getAvailableSquares(chessboard, piece.curSquare.square)
+        ) &&
+        !opposingPiece.isCheckingKing(
+          opposingPiece.getAvailableSquares(chessboard)
+        ) &&
+        !(opposingPiece.curSquare.column !== column && piece.type === "pawn")
+      );
+    });
+  }
+  piecePinning(piece, chessboard) {
+    const column = piece.curSquare.column;
+    const piecesMinusPinned = [...this.getSameColorPieces(chessboard)];
+    piecesMinusPinned.splice(piecesMinusPinned.indexOf(piece), 1);
+    console.log(piecesMinusPinned);
+    return this.getOpposingPieces(chessboard).find(
+      (opposingPiece) =>
+        opposingPiece.canGoTo(
+          piece.curSquare.square,
+          opposingPiece.getAvailableSquares(chessboard)
+        ) &&
+        opposingPiece.isCheckingKing(
+          opposingPiece.getAvailableSquares(chessboard, piece.curSquare.square)
+        ) &&
+        !opposingPiece.isCheckingKing(
+          opposingPiece.getAvailableSquares(chessboard)
+        ) &&
+        !(opposingPiece.curSquare.column !== column && piece.type === "pawn")
+    );
+  }
 }
 
 export default King;

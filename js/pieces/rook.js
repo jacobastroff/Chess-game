@@ -22,7 +22,7 @@ class Rook extends Piece {
       return [7, x];
     }
   }
-  getAvailableSquares(chessboard) {
+  getAvailableSquares(chessboard, squareToBeIgnored = undefined) {
     const allSquares = chessboard.getSquares().flat();
     const allSquaresByDirection = [
       allSquares
@@ -56,7 +56,10 @@ class Rook extends Piece {
     ];
     // console.log(this, allSquaresByDirection[3]);
 
-    return this.getAvailbleSquaresPiece(allSquaresByDirection);
+    return this.getAvailbleSquaresPiece(
+      allSquaresByDirection,
+      squareToBeIgnored
+    );
   }
 }
 export default Rook;

@@ -26,5 +26,5 @@ const white_pieces = [
   new King("white"),
   ...Array.from(new Array(8), (_, i) => new Pawn("white", i)),
 ];
-
+// white_pieces.splice(-4, 1);
 export { white_pieces, black_pieces };

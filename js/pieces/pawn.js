@@ -12,7 +12,7 @@ class Pawn extends Piece {
     if (this.color === "black") return [6, this.startingCoordX];
     else return [1, this.startingCoordX];
   }
-  getAvailableSquares(chessboard) {
+  getAvailableSquares(chessboard, opposingPieces = undefined) {
     const allSquares = chessboard.getSquares().flat();
     const allPotentialSquares = [];
     const upOrDown = this.color === "white" ? 1 : -1;

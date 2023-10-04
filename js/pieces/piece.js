@@ -71,13 +71,18 @@ class Piece {
     return this.type;
   }
 
-  getAvailbleSquaresPiece(sqauresFourDirections) {
+  getAvailbleSquaresPiece(
+    sqauresFourDirections,
+    squareToBeIgnored = undefined
+  ) {
     const availableSquares = [];
     sqauresFourDirections.forEach((dimension) => {
       // console.log(dimension);
       for (const square of dimension) {
         if (!square.isOccupied) {
           // availableSquares.push(square)
+          availableSquares.push(square);
+        } else if (square === squareToBeIgnored) {
           availableSquares.push(square);
         } else {
           // console.log(this);
@@ -110,7 +115,16 @@ class Piece {
       )
       .map((square) => square.piece);
   }
-
+  getSameColorPieces(chessboard) {
+    return chessboard
+      .getSquares()
+      .flat()
+      .filter(
+        (square) =>
+          square.isOccupied && square.pieceOccupyingName?.startsWith(this.color)
+      )
+      .map((square) => square.piece);
+  }
   delete(group) {
     group.splice(group.indexOf(this), 1);
     this.#el.style.display = "none";

@@ -21,7 +21,58 @@ chessGame.black_pieces.forEach((piece) =>
   )
 );
 chessGame.setup();
+// const king = white_pieces.find((piece) => piece.type === "king");
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// // queen.moveTo(chessboard.getSquares()[3][4]);
+// console.log(
+//   king.isBehindPinnedPiece(
+//     white_pieces.find(
+//       (piece) => piece.type === "pawn" && piece.curSquare.column === 6
+//     ),
+//     chessboard
+//   )
+// );
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const knight = white_pieces.find(
+//   (piece) => piece.type === "knight" && piece.curSquare.column === 7
+// );
+// knight.moveTo(chessboard.getSquares()[1][4]);
 
+//PINNING
+// const king = white_pieces.find((piece) => piece.type === "king");
+// console.log(
+//   king.isBehindPinnedPiece(
+//     white_pieces.find(
+//       (piece) => piece.type === "pawn" && piece.curSquare.column === 6
+//     ),
+//     chessboard
+//   )
+// );
+// console.log(
+//   white_pieces.find(
+//     (piece) => piece.type === "pawn" && piece.curSquare.column === 6
+//   )
+// );
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[3][4]);
+// console.log(
+//   king.isBehindPinnedPiece(
+//     white_pieces.find(
+//       (piece) => piece.type === "pawn" && piece.curSquare.column === 6
+//     ),
+//     chessboard
+//   )
+// );
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const knight = white_pieces.find(
+//   (piece) => piece.type === "knight" && piece.curSquare.column === 7
+// );
+// knight.moveTo(chessboard.getSquares()[1][4]);
+// console.log(king.isBehindPinnedPiece(knight, chessboard));
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
 // console.log(chessboard.getSquares());
 // console.log(
 //   white_pieces

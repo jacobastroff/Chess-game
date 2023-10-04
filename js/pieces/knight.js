@@ -18,7 +18,11 @@ class Knight extends Piece {
       return [7, x];
     }
   }
-  getAvailableSquares(chessboard) {
+  getAvailableSquares(
+    chessboard,
+    squareToBeIgnored = undefined,
+    isPinned = undefined
+  ) {
     const allSquares = chessboard.getSquares().flat();
     const allPotentialSqaures = [];
     for (let i = -1; i <= 1; i += 2) {
@@ -62,7 +66,14 @@ class Knight extends Piece {
       .filter((square) => square)
       .map((square) => [square]);
     // console.log(allAvailableSquares);
-    return this.getAvailbleSquaresPiece(allAvailableSquares);
+    if (!isPinned) {
+      return this.getAvailbleSquaresPiece(
+        allAvailableSquares,
+        squareToBeIgnored
+      );
+    } else {
+      return [];
+    }
   }
 }
 export default Knight;
