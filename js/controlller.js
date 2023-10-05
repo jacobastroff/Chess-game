@@ -21,6 +21,36 @@ chessGame.black_pieces.forEach((piece) =>
   )
 );
 chessGame.setup();
+
+//LINE OF SIGHT ROOK
+// const rook = white_pieces.find((piece) => piece.type === "rook");
+// rook.moveTo(chessboard.getSquares()[3][4]);
+// console.log(rook.isCheckingKing(rook.getAvailableSquares(chessboard)));
+// console.log(rook.getAvailableSquares(chessboard));
+// console.log(rook.getLineToKingSquares(chessboard));
+
+//LINE OF SIGHT BISHOP
+// const bishop = white_pieces.find(
+//   (piece) => piece.type === "bishop" && piece.curSquare.column === 6
+// );
+// bishop.moveTo(chessboard.getSquares()[4][1]);
+// console.log(bishop.isCheckingKing(bishop.getAvailableSquares(chessboard)));
+// console.log(bishop.getAvailableSquares(chessboard));
+// console.log(bishop.getLineToKingSquares(chessboard));
+//LINE OF SIGHT QUEEN
+//1.
+// const queen = white_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[4][1]);
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(queen.getAvailableSquares(chessboard));
+// console.log(queen.getLineToKingSquares(chessboard));
+//2.
+// const queen = white_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[3][4]);
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(queen.getAvailableSquares(chessboard));
+// console.log(queen.getLineToKingSquares(chessboard));
+//OTHER TESTS
 // const king = white_pieces.find((piece) => piece.type === "king");
 // const queen = black_pieces.find((piece) => piece.type === "queen");
 // // queen.moveTo(chessboard.getSquares()[3][4]);

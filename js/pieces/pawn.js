@@ -94,5 +94,8 @@ class Pawn extends Piece {
         square.pieceOccupyingName.endsWith("pawn")
     );
   }
+  getLineToKingSquares() {
+    return [this.curSquare.square];
+  }
 }
 export default Pawn;

@@ -75,5 +75,8 @@ class Knight extends Piece {
       return [];
     }
   }
+  getLineToKingSquares() {
+    return [this.curSquare.square];
+  }
 }
 export default Knight;

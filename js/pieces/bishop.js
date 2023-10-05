@@ -149,5 +149,58 @@ class Bishop extends Piece {
       }
     }
   }
+  getLineToKingSquares(chessboard) {
+    const king = this.getOpposingPieces(chessboard).find(
+      (piece) => piece.type === "king"
+    );
+    if (
+      king.curSquare.column < this.curSquare.column &&
+      king.curSquare.row < this.curSquare.row
+    ) {
+      return this.getAvailableSquares(chessboard)
+        .filter(
+          (square) =>
+            square.column < this.curSquare.column &&
+            square.row < this.curSquare.row
+        )
+        .concat([this.curSquare.square]);
+    }
+    if (
+      king.curSquare.column > this.curSquare.column &&
+      king.curSquare.row > this.curSquare.row
+    ) {
+      return this.getAvailableSquares(chessboard)
+        .filter(
+          (square) =>
+            square.column > this.curSquare.column &&
+            square.row > this.curSquare.row
+        )
+        .concat([this.curSquare.square]);
+    }
+    if (
+      king.curSquare.column > this.curSquare.column &&
+      king.curSquare.row < this.curSquare.row
+    ) {
+      return this.getAvailableSquares(chessboard)
+        .filter(
+          (square) =>
+            square.column > this.curSquare.column &&
+            square.row < this.curSquare.row
+        )
+        .concat([this.curSquare.square]);
+    }
+    if (
+      king.curSquare.column < this.curSquare.column &&
+      king.curSquare.row > this.curSquare.row
+    ) {
+      return this.getAvailableSquares(chessboard)
+        .filter(
+          (square) =>
+            square.column < this.curSquare.column &&
+            square.row > this.curSquare.row
+        )
+        .concat([this.curSquare.square]);
+    }
+  }
 }
 export default Bishop;
