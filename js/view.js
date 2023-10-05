@@ -86,6 +86,7 @@ class ChessGame {
           );
           if (canGoStatus) {
             this.active_square_piece.moveTo(square, this.chessboard);
+            // this.active_square_piece.getSameColorPieces.forEach(piece=>piece.disabled === true)
             availableSquares.forEach((square) =>
               square.element.classList.remove("potential-square")
             );

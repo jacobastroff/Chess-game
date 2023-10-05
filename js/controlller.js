@@ -21,6 +21,15 @@ chessGame.black_pieces.forEach((piece) =>
   )
 );
 chessGame.setup();
+//KING AVAILABLE SQUARES
+const rook = white_pieces.find((piece) => piece.type === "rook");
+const king = black_pieces.find((piece) => piece.type === "king");
+console.log(king.getAvailableSquares(chessboard));
+rook.moveTo(chessboard.getSquares()[3][4]);
+console.log(rook.isCheckingKing(rook.getAvailableSquares(chessboard)));
+console.log(rook.getAvailableSquares(chessboard));
+console.log(rook.getLineToKingSquares(chessboard));
+console.log(king.getAvailableSquares(chessboard));
 
 //LINE OF SIGHT ROOK
 // const rook = white_pieces.find((piece) => piece.type === "rook");

@@ -26,21 +26,27 @@ class King extends Piece {
     const squaresWithoutCheck = this.getAvailbleSquaresPiece(
       potentialSquares.map((square) => [square])
     );
-
-    return squaresWithoutCheck;
+    const squaresWithCheck = squaresWithoutCheck.filter(
+      (square) => !this.isInCheck(chessboard, square)
+    );
+    return squaresWithCheck;
   }
   isInCheck(chessboard, specificSquare = undefined) {
     console.log(this.getOpposingPieces(chessboard));
     if (!specificSquare) {
       // console.log(this.getOpposingPieces(chessboard));
-      return this.getOpposingPieces(chessboard).some((piece) => {
-        console.log(piece);
-        return piece.isCheckingKing(piece.getAvailableSquares(chessboard));
-      });
+      return this.getOpposingPieces(chessboard)
+        .filter((piece) => piece.type !== "king")
+        .some((piece) => {
+          console.log(piece);
+          return piece.isCheckingKing(piece.getAvailableSquares(chessboard));
+        });
     } else {
-      return this.getOpposingPieces(chessboard).some((piece) =>
-        piece.canGoTo(specificSquare, piece.getAvailableSquares(chessboard))
-      );
+      return this.getOpposingPieces(chessboard)
+        .filter((piece) => piece.type !== "king")
+        .some((piece) =>
+          piece.canGoTo(specificSquare, piece.getAvailableSquares(chessboard))
+        );
     }
   }
   canCastle(rook, chessboard) {
@@ -131,6 +137,10 @@ class King extends Piece {
         ) &&
         !(opposingPiece.curSquare.column !== column && piece.type === "pawn")
     );
+  }
+  hasBeenCheckmated(chessboard) {
+    if (this.isInCheck(chessboard)) {
+    }
   }
 }
 
