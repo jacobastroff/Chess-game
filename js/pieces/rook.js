@@ -61,12 +61,55 @@ class Rook extends Piece {
         .sort((a, b) => a.row - b.row),
     ];
     // console.log(this, allSquaresByDirection[3]);
+    if (!isPinned) {
+      return this.getAvailbleSquaresPiece(
+        allSquaresByDirection,
+        squareToBeIgnored,
+        isCheckingLineOfSightKing
+      );
+    } else if (
+      piecePinning?.curSquare.column !== this.curSquare.column &&
+      piecePinning.curSquare.row !== this.curSquare.row
+    ) {
+      return [];
+    } else {
+      const allAvailableSquares = this.getAvailbleSquaresPiece(
+        allSquaresByDirection,
+        squareToBeIgnored,
+        isCheckingLineOfSightKing
+      );
+      if (piecePinning.curSquare.column > this.curSquare.column) {
+        return allAvailableSquares.filter(
+          (square) =>
+            square.column <= piecePinning?.curSquare.column &&
+            square.row === this.curSquare.row
+        );
+      }
+      if (piecePinning.curSquare.column < this.curSquare.column) {
+        return allAvailableSquares.filter(
+          (square) =>
+            square.column >= piecePinning?.curSquare.column &&
+            square.row === this.curSquare.row
+        );
+      }
+      // .filter((square) => square.column >= piecePinning?.curSquare.column);
 
-    return this.getAvailbleSquaresPiece(
-      allSquaresByDirection,
-      squareToBeIgnored,
-      isCheckingLineOfSightKing
-    );
+      if (piecePinning.curSquare.row < this.curSquare.row) {
+        return allAvailableSquares.filter(
+          (square) =>
+            square.row >= piecePinning?.curSquare.row &&
+            square.column === this.curSquare.column
+        );
+      }
+      if (piecePinning.curSquare.row > this.curSquare.row) {
+        console.log("HELLO");
+        return allAvailableSquares.filter(
+          (square) =>
+            square.row <= piecePinning?.curSquare.row &&
+            square.column === this.curSquare.column
+        );
+      }
+    }
   }
   getLineToKingSquares(chessboard) {
     const king = this.getOpposingPieces(chessboard).find(

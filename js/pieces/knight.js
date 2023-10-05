@@ -22,6 +22,7 @@ class Knight extends Piece {
     chessboard,
     squareToBeIgnored = undefined,
     isPinned = undefined,
+    piecePinning = undefined,
     isCheckingLineOfSightKing = undefined
   ) {
     const allSquares = chessboard.getSquares().flat();

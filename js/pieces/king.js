@@ -45,7 +45,16 @@ class King extends Piece {
       return this.getOpposingPieces(chessboard)
         .filter((piece) => piece.type !== "king")
         .some((piece) =>
-          piece.canGoTo(specificSquare, piece.getLineToKingSquares(chessboard))
+          piece.canGoTo(
+            specificSquare,
+            piece.getAvailableSquares(
+              chessboard,
+              undefined,
+              undefined,
+              undefined,
+              true
+            )
+          )
         );
     }
   }

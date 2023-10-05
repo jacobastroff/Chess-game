@@ -112,12 +112,129 @@ class Queen extends Piece {
       allSquaresByFourDirections.concat(allSquaresHorizontal);
     // console.log(this, allSquaresByDirection[3]);
     // console.log(this, allSquaresByDirection[3]);
+    if (!isPinned) {
+      return this.getAvailbleSquaresPiece(
+        allMoveableSqaures,
+        squareToBeIgnored,
+        isCheckingLineOfSightKing
+      );
+    } else {
+      if (
+        piecePinning.curSquare?.column === this.curSquare.column ||
+        piecePinning.curSquare?.row === this.curSquare.row
+      ) {
+        const allAvailableSquares = this.getAvailbleSquaresPiece(
+          allMoveableSqaures,
+          squareToBeIgnored,
+          isCheckingLineOfSightKing
+        );
+        if (piecePinning.curSquare.column > this.curSquare.column) {
+          return allAvailableSquares.filter(
+            (square) =>
+              square.column <= piecePinning?.curSquare.column &&
+              square.row === this.curSquare.row
+          );
+        }
+        if (piecePinning.curSquare.column < this.curSquare.column) {
+          return allAvailableSquares.filter(
+            (square) =>
+              square.column >= piecePinning?.curSquare.column &&
+              square.row === this.curSquare.row
+          );
+        }
+        // .filter((square) => square.column >= piecePinning?.curSquare.column);
 
-    return this.getAvailbleSquaresPiece(
-      allMoveableSqaures,
-      squareToBeIgnored,
-      isCheckingLineOfSightKing
-    );
+        if (piecePinning.curSquare.row < this.curSquare.row) {
+          return allAvailableSquares.filter(
+            (square) =>
+              square.row >= piecePinning?.curSquare.row &&
+              square.column === this.curSquare.column
+          );
+        }
+        if (piecePinning.curSquare.row > this.curSquare.row) {
+          console.log("HELLO");
+          return allAvailableSquares.filter(
+            (square) =>
+              square.row <= piecePinning?.curSquare.row &&
+              square.column === this.curSquare.column
+          );
+        }
+      } else {
+        const allAvailableSquaresTwoDirections = [
+          this.getAvailbleSquaresPiece(
+            allMoveableSqaures,
+            squareToBeIgnored,
+            isCheckingLineOfSightKing
+          ).filter(
+            (square) =>
+              (square.row > this.curSquare.row &&
+                square.column > this.curSquare.column) ||
+              (square.row < this.curSquare.row &&
+                square.column < this.curSquare.column)
+          ),
+          this.getAvailbleSquaresPiece(
+            allSquaresByFourDirections,
+            squareToBeIgnored,
+            isCheckingLineOfSightKing
+          ).filter(
+            (square) =>
+              (square.row > this.curSquare.row &&
+                square.column < this.curSquare.column) ||
+              (square.row < this.curSquare.row &&
+                square.column > this.curSquare.column)
+          ),
+        ];
+
+        if (
+          piecePinning?.curSquare.column > this.curSquare.column &&
+          piecePinning?.curSquare.row > this.curSquare.row
+        ) {
+          return allAvailableSquaresTwoDirections[0]
+            .filter(
+              (square) =>
+                square.column < piecePinning.curSquare.column &&
+                square.row < piecePinning.curSquare.row
+            )
+            .concat([piecePinning.curSquare.square]);
+        }
+        if (
+          piecePinning.curSquare.column < this.curSquare.column &&
+          piecePinning.curSquare.row < this.curSquare.row
+        ) {
+          return allAvailableSquaresTwoDirections[0]
+            .filter(
+              (square) =>
+                square.column > piecePinning.curSquare.column &&
+                square.row > piecePinning.curSquare.row
+            )
+            .concat([piecePinning.curSquare.square]);
+        }
+        if (
+          piecePinning.curSquare.column > this.curSquare.column &&
+          piecePinning.curSquare.row < this.curSquare.row
+        ) {
+          return allAvailableSquaresTwoDirections[1]
+            .filter(
+              (square) =>
+                square.column < piecePinning.curSquare.column &&
+                square.row > piecePinning.curSquare.row
+            )
+            .concat([piecePinning.curSquare.square]);
+        }
+        if (
+          piecePinning.curSquare.column < this.curSquare.column &&
+          piecePinning.curSquare.row > this.curSquare.row
+        ) {
+          return allAvailableSquaresTwoDirections[1]
+            .filter(
+              (square) =>
+                square.column > piecePinning.curSquare.column &&
+                square.row < piecePinning.curSquare.row
+            )
+            .concat([piecePinning.curSquare.square]);
+        }
+      }
+    }
   }
   getLineToKingSquares(chessboard) {
     const king = this.getOpposingPieces(chessboard).find(

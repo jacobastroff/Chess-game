@@ -23,7 +23,7 @@ class Bishop extends Piece {
     squareToBeIgnored = undefined,
     isPinned = undefined,
     piecePinning = undefined,
-    isInLineOfSightKing = undefined
+    isCheckingLineOfSightKing = undefined
   ) {
     const allSquares = chessboard.getSquares().flat();
     const allSquaresByLeftRight = new Array(2).fill([[], []]);
@@ -94,7 +94,7 @@ class Bishop extends Piece {
       return this.getAvailbleSquaresPiece(
         allSquaresByFourDirections,
         squareToBeIgnored,
-        isInLineOfSightKing
+        isCheckingLineOfSightKing
       );
     } else if (
       piecePinning.curSquare?.column === this.curSquare.column ||
@@ -102,53 +102,78 @@ class Bishop extends Piece {
     ) {
       return [];
     } else {
+      const allAvailableSquaresTwoDirections = [
+        this.getAvailbleSquaresPiece(
+          allSquaresByFourDirections,
+          squareToBeIgnored,
+          isCheckingLineOfSightKing
+        ).filter(
+          (square) =>
+            (square.row > this.curSquare.row &&
+              square.column > this.curSquare.column) ||
+            (square.row < this.curSquare.row &&
+              square.column < this.curSquare.column)
+        ),
+        this.getAvailbleSquaresPiece(
+          allSquaresByFourDirections,
+          squareToBeIgnored,
+          isCheckingLineOfSightKing
+        ).filter(
+          (square) =>
+            (square.row > this.curSquare.row &&
+              square.column < this.curSquare.column) ||
+            (square.row < this.curSquare.row &&
+              square.column > this.curSquare.column)
+        ),
+      ];
+
       if (
         piecePinning?.curSquare.column > this.curSquare.column &&
         piecePinning?.curSquare.row > this.curSquare.row
       ) {
-        return allSquaresByFourDirections.find((direction) =>
-          direction.every(
+        return allAvailableSquaresTwoDirections[0]
+          .filter(
             (square) =>
               square.column < piecePinning.curSquare.column &&
               square.row < piecePinning.curSquare.row
           )
-        );
+          .concat([piecePinning.curSquare.square]);
       }
       if (
         piecePinning.curSquare.column < this.curSquare.column &&
         piecePinning.curSquare.row < this.curSquare.row
       ) {
-        return allSquaresByFourDirections.find((direction) =>
-          direction.every(
+        return allAvailableSquaresTwoDirections[0]
+          .filter(
             (square) =>
               square.column > piecePinning.curSquare.column &&
               square.row > piecePinning.curSquare.row
           )
-        );
+          .concat([piecePinning.curSquare.square]);
       }
       if (
         piecePinning.curSquare.column > this.curSquare.column &&
         piecePinning.curSquare.row < this.curSquare.row
       ) {
-        return allSquaresByFourDirections.find((direction) =>
-          direction.every(
+        return allAvailableSquaresTwoDirections[1]
+          .filter(
             (square) =>
               square.column < piecePinning.curSquare.column &&
               square.row > piecePinning.curSquare.row
           )
-        );
+          .concat([piecePinning.curSquare.square]);
       }
       if (
         piecePinning.curSquare.column < this.curSquare.column &&
         piecePinning.curSquare.row > this.curSquare.row
       ) {
-        return allSquaresByFourDirections.find((direction) =>
-          direction.every(
+        return allAvailableSquaresTwoDirections[1]
+          .filter(
             (square) =>
               square.column > piecePinning.curSquare.column &&
               square.row < piecePinning.curSquare.row
           )
-        );
+          .concat([piecePinning.curSquare.square]);
       }
     }
   }
@@ -173,8 +198,7 @@ class Bishop extends Piece {
             square.row < this.curSquare.row
         )
         .concat([this.curSquare.square]);
-    }
-    if (
+    } else if (
       king.curSquare.column > this.curSquare.column &&
       king.curSquare.row > this.curSquare.row
     ) {
@@ -191,8 +215,7 @@ class Bishop extends Piece {
             square.row > this.curSquare.row
         )
         .concat([this.curSquare.square]);
-    }
-    if (
+    } else if (
       king.curSquare.column > this.curSquare.column &&
       king.curSquare.row < this.curSquare.row
     ) {
@@ -209,8 +232,7 @@ class Bishop extends Piece {
             square.row < this.curSquare.row
         )
         .concat([this.curSquare.square]);
-    }
-    if (
+    } else if (
       king.curSquare.column < this.curSquare.column &&
       king.curSquare.row > this.curSquare.row
     ) {
@@ -227,6 +249,8 @@ class Bishop extends Piece {
             square.row > this.curSquare.row
         )
         .concat([this.curSquare.square]);
+    } else {
+      return [];
     }
   }
 }

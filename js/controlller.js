@@ -37,13 +37,13 @@ chessGame.setup();
 // );
 
 //TEST 2
-const blackKing = black_pieces.find((piece) => piece.type === "king");
+// const blackKing = black_pieces.find((piece) => piece.type === "king");
 
-const queen = white_pieces.find((piece) => piece.type === "queen");
-queen.moveTo(chessboard.getSquares()[4][7]);
-console.log(blackKing.isInCheck(chessboard));
+// const queen = white_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[4][7]);
+// console.log(blackKing.isInCheck(chessboard));
 
-console.log(blackKing.hasBeenCheckmated(chessboard));
+// console.log(blackKing.hasBeenCheckmated(chessboard));
 
 //KING AVAILABLE SQUARES
 // const rook = white_pieces.find((piece) => piece.type === "rook");
@@ -103,6 +103,8 @@ console.log(blackKing.hasBeenCheckmated(chessboard));
 // knight.moveTo(chessboard.getSquares()[1][4]);
 
 //PINNING
+
+//KNIGHT
 // const king = white_pieces.find((piece) => piece.type === "king");
 // console.log(
 //   king.isBehindPinnedPiece(
@@ -137,7 +139,187 @@ console.log(blackKing.hasBeenCheckmated(chessboard));
 // console.log(king.isInCheck(chessboard));
 // console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
 // console.log(chessboard.getSquares());
-// console.log(knight.getAvailableSquares(chessboard));
+// console.log(
+//   knight.getAvailableSquares(
+//     chessboard,
+//     undefined,
+//     true,
+//     king.piecePinning(knight, chessboard)
+//   )
+// );
+//BISHOP
+// //#1
+// const king = white_pieces.find((piece) => piece.type === "king");
+
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[3][5]);
+
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const bishop = white_pieces.find(
+//   (piece) => piece.type === "bishop" && piece.curSquare.column === 6
+// );
+// bishop.moveTo(chessboard.getSquares()[1][4], chessboard);
+// console.log(king.isBehindPinnedPiece(bishop, chessboard));
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(chessboard.getSquares());
+// console.log(bishop.getAvailableSquares(chessboard));
+
+//2
+// const king = white_pieces.find((piece) => piece.type === "king");
+
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[3][4]);
+
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const bishop = white_pieces.find(
+//   (piece) => piece.type === "bishop" && piece.curSquare.column === 6
+// );
+// bishop.moveTo(chessboard.getSquares()[1][4], chessboard);
+// console.log(king.isBehindPinnedPiece(bishop, chessboard));
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(chessboard.getSquares());
+// console.log(bishop.getAvailableSquares(chessboard));
+//3
+
+// const king = white_pieces.find((piece) => piece.type === "king");
+
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[2][6]);
+
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const bishop = white_pieces.find(
+//   (piece) => piece.type === "bishop" && piece.curSquare.column === 6
+// );
+// bishop.moveTo(chessboard.getSquares()[1][5], chessboard);
+// console.log(king.isBehindPinnedPiece(bishop, chessboard));
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(chessboard.getSquares());
+// console.log(bishop.getAvailableSquares(chessboard));
+//4
+// const king = white_pieces.find((piece) => piece.type === "king");
+
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[3][7]);
+
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const bishop = white_pieces.find(
+//   (piece) => piece.type === "bishop" && piece.curSquare.column === 6
+// );
+// bishop.moveTo(chessboard.getSquares()[1][5], chessboard);
+// console.log(king.isBehindPinnedPiece(bishop, chessboard));
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(chessboard.getSquares());
+// console.log(bishop.getAvailableSquares(chessboard));
+
+//QUEEN
+//#1
+// const king = white_pieces.find((piece) => piece.type === "king");
+
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[3][5]);
+
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const white_queen = white_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[1][4], chessboard);
+// console.log(king.isBehindPinnedPiece(white_queen, chessboard));
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(chessboard.getSquares());
+// console.log(white_queen.getAvailableSquares(chessboard));
+// console.log(queen.getAvailableSquares(chessboard));
+// 2;
+// const king = white_pieces.find((piece) => piece.type === "king");
+
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[3][4]);
+
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const white_queen = white_pieces.find((piece) => piece.type === "queen");
+// white_queen.moveTo(chessboard.getSquares()[1][4], chessboard);
+// console.log(king.isBehindPinnedPiece(white_queen, chessboard));
+// // console.log("HELLO");
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(chessboard.getSquares());
+// console.log(white_queen.getAvailableSquares(chessboard));
+//3
+
+// const king = white_pieces.find((piece) => piece.type === "king");
+
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[2][6]);
+
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const white_queen = white_pieces.find((piece) => piece.type === "queen");
+// white_queen.moveTo(chessboard.getSquares()[1][5], chessboard);
+// console.log(king.isBehindPinnedPiece(white_queen, chessboard));
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(chessboard.getSquares());
+// console.log(white_queen.getAvailableSquares(chessboard));
+//4
+const king = white_pieces.find((piece) => piece.type === "king");
+
+const queen = black_pieces.find((piece) => piece.type === "queen");
+queen.moveTo(chessboard.getSquares()[3][7]);
+
+console.log(king.isInCheck(chessboard));
+console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+const white_queen = white_pieces.find((piece) => piece.type === "queen");
+white_queen.moveTo(chessboard.getSquares()[1][5], chessboard);
+console.log(king.isBehindPinnedPiece(white_queen, chessboard));
+console.log(king.isInCheck(chessboard));
+console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+console.log(chessboard.getSquares());
+console.log(white_queen.getAvailableSquares(chessboard));
+
+//ROOK
+//1;
+// const king = white_pieces.find((piece) => piece.type === "king");
+
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[3][4]);
+
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const rook = white_pieces.find(
+//   (piece) => piece.type === "rook" && piece.curSquare.column === 8
+// );
+// rook.moveTo(chessboard.getSquares()[1][4], chessboard);
+// console.log(king.isBehindPinnedPiece(rook, chessboard));
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(chessboard.getSquares());
+// console.log(rook.getAvailableSquares(chessboard));
+//2
+// const king = white_pieces.find((piece) => piece.type === "king");
+
+// const queen = black_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[3][7]);
+
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// const rook = white_pieces.find(
+//   (piece) => piece.type === "rook" && piece.curSquare.column === 8
+// );
+// rook.moveTo(chessboard.getSquares()[1][5], chessboard);
+// console.log(king.isBehindPinnedPiece(rook, chessboard));
+// console.log(king.isInCheck(chessboard));
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+// console.log(chessboard.getSquares());
+// console.log(rook.getAvailableSquares(chessboard));
+
 // TEST ROOK
 // white_pieces.find(
 //   (piece) => piece.type === "rook" && piece.curSquare.column === 8
