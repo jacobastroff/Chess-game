@@ -76,7 +76,8 @@ class Piece {
 
   getAvailbleSquaresPiece(
     sqauresFourDirections,
-    squareToBeIgnored = undefined
+    squareToBeIgnored = undefined,
+    isCheckingLineOfSightKing = undefined
   ) {
     const availableSquares = [];
     sqauresFourDirections.forEach((dimension) => {
@@ -89,9 +90,13 @@ class Piece {
           availableSquares.push(square);
         } else {
           // console.log(this);
-          if (!square.pieceOccupyingName.startsWith(`${this.color}`)) {
+          if (
+            !square.pieceOccupyingName.startsWith(`${this.color}`) ||
+            isCheckingLineOfSightKing
+          ) {
             availableSquares.push(square);
           }
+
           break;
         }
       }

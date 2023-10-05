@@ -22,7 +22,13 @@ class Rook extends Piece {
       return [7, x];
     }
   }
-  getAvailableSquares(chessboard, squareToBeIgnored = undefined) {
+  getAvailableSquares(
+    chessboard,
+    squareToBeIgnored = undefined,
+    isPinned = undefined,
+    piecePinning = undefined,
+    isCheckingLineOfSightKing = undefined
+  ) {
     const allSquares = chessboard.getSquares().flat();
     const allSquaresByDirection = [
       allSquares
@@ -58,7 +64,8 @@ class Rook extends Piece {
 
     return this.getAvailbleSquaresPiece(
       allSquaresByDirection,
-      squareToBeIgnored
+      squareToBeIgnored,
+      isCheckingLineOfSightKing
     );
   }
   getLineToKingSquares(chessboard) {
@@ -66,19 +73,43 @@ class Rook extends Piece {
       (piece) => piece.type === "king"
     );
     if (king.curSquare.column > this.curSquare.column)
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter((square) => square.column > this.curSquare.column)
         .concat([this.curSquare.square]);
     if (king.curSquare.column < this.curSquare.column)
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter((square) => square.column < this.curSquare.column)
         .concat([this.curSquare.square]);
     if (king.curSquare.row > this.curSquare.row)
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter((square) => square.row > this.curSquare.row)
         .concat([this.curSquare.square]);
     if (king.curSquare.row < this.curSquare.row)
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter((square) => square.row < this.curSquare.row)
         .concat([this.curSquare.square]);
   }

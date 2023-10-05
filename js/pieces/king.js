@@ -45,7 +45,7 @@ class King extends Piece {
       return this.getOpposingPieces(chessboard)
         .filter((piece) => piece.type !== "king")
         .some((piece) =>
-          piece.canGoTo(specificSquare, piece.getAvailableSquares(chessboard))
+          piece.canGoTo(specificSquare, piece.getLineToKingSquares(chessboard))
         );
     }
   }
@@ -140,7 +140,40 @@ class King extends Piece {
   }
   hasBeenCheckmated(chessboard) {
     if (this.isInCheck(chessboard)) {
+      if (this.getAvailableSquares(chessboard).length === 0) {
+        if (
+          this.getOpposingPieces(chessboard)
+            .filter((piece) => piece.type !== "king")
+            .filter((piece) =>
+              piece.isCheckingKing(piece.getAvailableSquares(chessboard))
+            ).length === 1
+        ) {
+          let pieceCanGoThere = false;
+          this.getOpposingPieces(chessboard)
+            .find((piece) =>
+              piece.isCheckingKing(piece.getAvailableSquares(chessboard))
+            )
+            .getLineToKingSquares(chessboard)
+            .forEach((square) => {
+              if (
+                this.getSameColorPieces(chessboard).some((piece) =>
+                  piece.canGoTo(square, piece.getAvailableSquares(chessboard))
+                )
+              ) {
+                pieceCanGoThere = true;
+              }
+            });
+          if (pieceCanGoThere) {
+            return false;
+          } else {
+            return true;
+          }
+        } else {
+          return true;
+        }
+      }
     }
+    return false;
   }
 }
 

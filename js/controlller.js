@@ -21,15 +21,39 @@ chessGame.black_pieces.forEach((piece) =>
   )
 );
 chessGame.setup();
+
+//CHECKMATE
+//TEST 1
+// const blackKing = black_pieces.find((piece) => piece.type === "king");
+// console.log(blackKing.hasBeenCheckmated(chessboard));
+// const queen = white_pieces.find((piece) => piece.type === "queen");
+// queen.moveTo(chessboard.getSquares()[6][5]);
+// console.log(blackKing.hasBeenCheckmated(chessboard));
+// console.log(blackKing.getAvailableSquares(chessboard));
+// const bishop = white_pieces.find((piece) => piece.type === "bishop");
+// bishop.moveTo(chessboard.getSquares()[5][6]);
+// console.log(
+//   bishop.getAvailableSquares(chessboard, undefined, undefined, undefined, true)
+// );
+
+//TEST 2
+const blackKing = black_pieces.find((piece) => piece.type === "king");
+
+const queen = white_pieces.find((piece) => piece.type === "queen");
+queen.moveTo(chessboard.getSquares()[4][7]);
+console.log(blackKing.isInCheck(chessboard));
+
+console.log(blackKing.hasBeenCheckmated(chessboard));
+
 //KING AVAILABLE SQUARES
-const rook = white_pieces.find((piece) => piece.type === "rook");
-const king = black_pieces.find((piece) => piece.type === "king");
-console.log(king.getAvailableSquares(chessboard));
-rook.moveTo(chessboard.getSquares()[3][4]);
-console.log(rook.isCheckingKing(rook.getAvailableSquares(chessboard)));
-console.log(rook.getAvailableSquares(chessboard));
-console.log(rook.getLineToKingSquares(chessboard));
-console.log(king.getAvailableSquares(chessboard));
+// const rook = white_pieces.find((piece) => piece.type === "rook");
+// const king = black_pieces.find((piece) => piece.type === "king");
+// console.log(king.getAvailableSquares(chessboard));
+// rook.moveTo(chessboard.getSquares()[3][4]);
+// console.log(rook.isCheckingKing(rook.getAvailableSquares(chessboard)));
+// console.log(rook.getAvailableSquares(chessboard));
+// console.log(rook.getLineToKingSquares(chessboard));
+// console.log(king.getAvailableSquares(chessboard));
 
 //LINE OF SIGHT ROOK
 // const rook = white_pieces.find((piece) => piece.type === "rook");
@@ -108,16 +132,12 @@ console.log(king.getAvailableSquares(chessboard));
 // const knight = white_pieces.find(
 //   (piece) => piece.type === "knight" && piece.curSquare.column === 7
 // );
-// knight.moveTo(chessboard.getSquares()[1][4]);
+// knight.moveTo(chessboard.getSquares()[1][4], chessboard);
 // console.log(king.isBehindPinnedPiece(knight, chessboard));
 // console.log(king.isInCheck(chessboard));
 // console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
 // console.log(chessboard.getSquares());
-// console.log(
-//   white_pieces
-//     .find((piece) => piece.type === "rook" && piece.curSquare.column === 8)
-//     .getAvailableSquares(chessboard)
-// );
+// console.log(knight.getAvailableSquares(chessboard));
 // TEST ROOK
 // white_pieces.find(
 //   (piece) => piece.type === "rook" && piece.curSquare.column === 8

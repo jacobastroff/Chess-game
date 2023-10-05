@@ -12,7 +12,11 @@ class Pawn extends Piece {
     if (this.color === "black") return [6, this.startingCoordX];
     else return [1, this.startingCoordX];
   }
-  getAvailableSquares(chessboard, opposingPieces = undefined) {
+  getAvailableSquares(
+    chessboard,
+    opposingPieces = undefined,
+    isCheckingLineOfSightKing = undefined
+  ) {
     const allSquares = chessboard.getSquares().flat();
     const allPotentialSquares = [];
     const upOrDown = this.color === "white" ? 1 : -1;
@@ -47,7 +51,8 @@ class Pawn extends Piece {
     diagonals.forEach((square) => {
       if (
         square?.isOccupied &&
-        !square?.pieceOccupyingName.startsWith(this.color)
+        (!square?.pieceOccupyingName.startsWith(this.color) ||
+          isCheckingLineOfSightKing)
       ) {
         allPotentialSquares.push(square);
       }

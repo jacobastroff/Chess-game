@@ -22,7 +22,8 @@ class Bishop extends Piece {
     chessboard,
     squareToBeIgnored = undefined,
     isPinned = undefined,
-    piecePinning = undefined
+    piecePinning = undefined,
+    isInLineOfSightKing = undefined
   ) {
     const allSquares = chessboard.getSquares().flat();
     const allSquaresByLeftRight = new Array(2).fill([[], []]);
@@ -89,19 +90,21 @@ class Bishop extends Piece {
     ];
     // console.log(allSquaresByFourDirections);
     // console.log(this, allSquaresByDirection[3]);
-    if (
-      !isPinned ||
-      piecePinning.curSquare.column === this.curSquare.column ||
-      piecePinning.curSquare.row === this.curSquare.row
-    ) {
+    if (!isPinned) {
       return this.getAvailbleSquaresPiece(
         allSquaresByFourDirections,
-        squareToBeIgnored
+        squareToBeIgnored,
+        isInLineOfSightKing
       );
+    } else if (
+      piecePinning.curSquare?.column === this.curSquare.column ||
+      piecePinning.curSquare?.row === this.curSquare.row
+    ) {
+      return [];
     } else {
       if (
-        piecePinning.curSquare.column > this.curSquare.column &&
-        piecePinning.curSquare.row > this.curSquare.row
+        piecePinning?.curSquare.column > this.curSquare.column &&
+        piecePinning?.curSquare.row > this.curSquare.row
       ) {
         return allSquaresByFourDirections.find((direction) =>
           direction.every(
@@ -157,7 +160,13 @@ class Bishop extends Piece {
       king.curSquare.column < this.curSquare.column &&
       king.curSquare.row < this.curSquare.row
     ) {
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.column < this.curSquare.column &&
@@ -169,7 +178,13 @@ class Bishop extends Piece {
       king.curSquare.column > this.curSquare.column &&
       king.curSquare.row > this.curSquare.row
     ) {
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.column > this.curSquare.column &&
@@ -181,7 +196,13 @@ class Bishop extends Piece {
       king.curSquare.column > this.curSquare.column &&
       king.curSquare.row < this.curSquare.row
     ) {
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.column > this.curSquare.column &&
@@ -193,7 +214,13 @@ class Bishop extends Piece {
       king.curSquare.column < this.curSquare.column &&
       king.curSquare.row > this.curSquare.row
     ) {
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.column < this.curSquare.column &&

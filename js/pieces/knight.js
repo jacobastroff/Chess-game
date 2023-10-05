@@ -21,7 +21,8 @@ class Knight extends Piece {
   getAvailableSquares(
     chessboard,
     squareToBeIgnored = undefined,
-    isPinned = undefined
+    isPinned = undefined,
+    isCheckingLineOfSightKing = undefined
   ) {
     const allSquares = chessboard.getSquares().flat();
     const allPotentialSqaures = [];
@@ -69,7 +70,8 @@ class Knight extends Piece {
     if (!isPinned) {
       return this.getAvailbleSquaresPiece(
         allAvailableSquares,
-        squareToBeIgnored
+        squareToBeIgnored,
+        isCheckingLineOfSightKing
       );
     } else {
       return [];

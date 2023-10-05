@@ -9,7 +9,13 @@ class Queen extends Piece {
     if (this.color === "black") return [7, 3];
     else return [0, 3];
   }
-  getAvailableSquares(chessboard, squareToBeIgnored = undefined) {
+  getAvailableSquares(
+    chessboard,
+    squareToBeIgnored = undefined,
+    isPinned = undefined,
+    piecePinning = undefined,
+    isCheckingLineOfSightKing = undefined
+  ) {
     const allSquares = chessboard.getSquares().flat();
     const allSquaresHorizontal = [
       allSquares
@@ -107,7 +113,11 @@ class Queen extends Piece {
     // console.log(this, allSquaresByDirection[3]);
     // console.log(this, allSquaresByDirection[3]);
 
-    return this.getAvailbleSquaresPiece(allMoveableSqaures, squareToBeIgnored);
+    return this.getAvailbleSquaresPiece(
+      allMoveableSqaures,
+      squareToBeIgnored,
+      isCheckingLineOfSightKing
+    );
   }
   getLineToKingSquares(chessboard) {
     const king = this.getOpposingPieces(chessboard).find(
@@ -117,7 +127,13 @@ class Queen extends Piece {
       king.curSquare.column > this.curSquare.column &&
       king.curSquare.row === this.curSquare.row
     )
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.column > this.curSquare.column &&
@@ -128,7 +144,13 @@ class Queen extends Piece {
       king.curSquare.column < this.curSquare.column &&
       king.curSquare.row === this.curSquare.row
     )
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.column < this.curSquare.column &&
@@ -139,7 +161,13 @@ class Queen extends Piece {
       king.curSquare.row > this.curSquare.row &&
       this.curSquare.column === king.curSquare.column
     )
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.row > this.curSquare.row &&
@@ -150,7 +178,13 @@ class Queen extends Piece {
       king.curSquare.row < this.curSquare.row &&
       this.curSquare.column === king.curSquare.column
     )
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.row < this.curSquare.row &&
@@ -161,7 +195,13 @@ class Queen extends Piece {
       king.curSquare.column < this.curSquare.column &&
       king.curSquare.row < this.curSquare.row
     ) {
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.column < this.curSquare.column &&
@@ -173,7 +213,13 @@ class Queen extends Piece {
       king.curSquare.column > this.curSquare.column &&
       king.curSquare.row > this.curSquare.row
     ) {
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.column > this.curSquare.column &&
@@ -185,7 +231,13 @@ class Queen extends Piece {
       king.curSquare.column > this.curSquare.column &&
       king.curSquare.row < this.curSquare.row
     ) {
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.column > this.curSquare.column &&
@@ -197,7 +249,13 @@ class Queen extends Piece {
       king.curSquare.column < this.curSquare.column &&
       king.curSquare.row > this.curSquare.row
     ) {
-      return this.getAvailableSquares(chessboard)
+      return this.getAvailableSquares(
+        chessboard,
+        undefined,
+        undefined,
+        undefined,
+        true
+      )
         .filter(
           (square) =>
             square.column < this.curSquare.column &&
