@@ -14,11 +14,14 @@ class Pawn extends Piece {
   }
   getAvailableSquares(
     chessboard,
-    opposingPieces = undefined,
+    _,
+    isPinned = undefined,
+    piecePinning = undefined,
     isCheckingLineOfSightKing = undefined
   ) {
     const allSquares = chessboard.getSquares().flat();
     const allPotentialSquares = [];
+    const opposingPieces = this.getOpposingPieces(chessboard);
     const upOrDown = this.color === "white" ? 1 : -1;
     const nextSquare = allSquares.find(
       (square) =>
@@ -42,17 +45,22 @@ class Pawn extends Piece {
           square.row === this.curSquare.row + 1 * upOrDown
       ),
     ];
-    if (!nextSquare.isOccupied) {
+    if (
+      !nextSquare.isOccupied &&
+      (!isPinned || (isPinned && piecePinning.curSquare.column === this.column))
+    ) {
       allPotentialSquares.push(nextSquare);
+      if (this.firstMove && !nextNextSquare?.isOccupied) {
+        allPotentialSquares.push(nextNextSquare);
+      }
     }
-    if (this.firstMove && !nextNextSquare?.isOccupied) {
-      allPotentialSquares.push(nextNextSquare);
-    }
+
     diagonals.forEach((square) => {
       if (
         square?.isOccupied &&
         (!square?.pieceOccupyingName.startsWith(this.color) ||
-          isCheckingLineOfSightKing)
+          isCheckingLineOfSightKing) &&
+        (!isPinned || piecePinning === square?.piece)
       ) {
         allPotentialSquares.push(square);
       }
@@ -82,7 +90,6 @@ class Pawn extends Piece {
             square.column === en_passant_piece.column
         )
       );
-      en_passant_piece.piece.en_passant_status = false;
     }
     return allAvailableSquares;
   }
@@ -93,7 +100,7 @@ class Pawn extends Piece {
     return allSquares.some(
       (square) =>
         square.row === squareTo.row &&
-        // Math.abs(squareTo.column - square.column) === 1 &&
+        Math.abs(squareTo.column - square.column) === 1 &&
         square.isOccupied &&
         !square.pieceOccupyingName.startsWith(`${this.color}`) &&
         square.pieceOccupyingName.endsWith("pawn")

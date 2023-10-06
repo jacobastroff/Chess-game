@@ -12,7 +12,7 @@ class Piece {
   constructor(color) {
     this.color = color;
   }
-  init(square) {
+  init(square, chessboard) {
     const html = `<img
           class="piece ${this.color}"
           src="${this.image}"
@@ -26,9 +26,9 @@ class Piece {
       column: square.column,
       square: square,
     };
-    this.moveTo(square, undefined, true);
+    this.moveTo(square, chessboard, true);
   }
-  moveTo(square, chessboard = undefined, isInit = false, isCastling = false) {
+  moveTo(square, chessboard, isInit = false, isCastling = false) {
     if (!isInit) {
       // console.log(this.has_caused_en_passant);
       this.curSquare.square.isOccupied = false;
@@ -69,6 +69,9 @@ class Piece {
     this.curSquare.square.pieceOccupyingName = `${this.color} ${this.type}`;
     this.curSquare.square.piece = this;
     this.#position = { x: square.xCor, y: square.yCor };
+    this.getOpposingPieces(chessboard)
+      .filter((piece) => piece.type === "pawn")
+      .forEach((piece) => (piece.en_passant_status = false));
   }
   getName() {
     return this.type;

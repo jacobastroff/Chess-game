@@ -61,41 +61,77 @@ class ChessGame {
             .getSquares()
             .flat()
             .find((square) => square.element === e.target);
-          const availableSquares = (this.prevAvailableSquares =
-            this.active_square_piece.getAvailableSquares(
-              this.chessboard,
-              undefined,
-              king.isBehindPinnedPiece(
-                this.active_square_piece,
-                this.chessboard
-              ),
-              king.piecePinning(this.active_square_piece, this.chessboard)
-            ));
-          console.log(square);
-          const canGoStatus = this.active_square_piece.canGoTo(
-            square,
-            this.active_square_piece.getAvailableSquares(
-              this.chessboard,
-              undefined,
-              king.isBehindPinnedPiece(
-                this.active_square_piece,
-                this.chessboard
-              ),
-              king.piecePinning(this.active_square_piece, this.chessboard)
-            )
-          );
-          if (canGoStatus) {
-            this.active_square_piece.moveTo(square, this.chessboard);
-            // this.active_square_piece.getSameColorPieces.forEach(piece=>piece.disabled === true)
-            availableSquares.forEach((square) =>
-              square.element.classList.remove("potential-square")
-            );
-            this.active_square_piece = null;
-            // prevSquareEl.classList.remove("active-square");
+          let availableSquares;
+          if (this.active_square_piece.type !== "king") {
+            // console.log("GRR");
+            availableSquares = this.prevAvailableSquares =
+              this.active_square_piece.getAvailableSquares(
+                this.chessboard,
+                undefined,
+                king.isBehindPinnedPiece(
+                  this.active_square_piece,
+                  this.chessboard
+                ),
+                king.piecePinning(this.active_square_piece, this.chessboard)
+              );
           } else {
-            console.log("Piece cannot go there. Please try again ");
-            this.active_square_piece = null;
-            console.log(this.prevSquareEl, "HELLO");
+            // console.log("LOVE U");
+            availableSquares = this.prevAvailableSquares =
+              this.active_square_piece.getAvailableSquares(this.chessboard);
+          }
+          console.log(square);
+          if (
+            this.active_square_piece.type !== "king" ||
+            Math.abs(
+              square.column - this.active_square_piece.curSquare.column
+            ) !== 2
+          ) {
+            console.log("HELLO WORLD");
+            const canGoStatus = this.active_square_piece.canGoTo(
+              square,
+              this.active_square_piece.getAvailableSquares(
+                this.chessboard,
+                undefined,
+                king.isBehindPinnedPiece(
+                  this.active_square_piece,
+                  this.chessboard
+                ),
+                king.piecePinning(this.active_square_piece, this.chessboard)
+              )
+            );
+            if (canGoStatus) {
+              this.active_square_piece.moveTo(square, this.chessboard);
+              // this.active_square_piece.getSameColorPieces.forEach(piece=>piece.disabled === true)
+              availableSquares.forEach((square) =>
+                square.element.classList.remove("potential-square")
+              );
+              this.active_square_piece = null;
+              // prevSquareEl.classList.remove("active-square");
+            } else {
+              console.log("Piece cannot go there. Please try again ");
+              this.active_square_piece = null;
+              console.log(this.prevSquareEl, "HELLO");
+            }
+          } else {
+            if (availableSquares.includes(square)) {
+              this.active_square_piece.castle(
+                this.active_square_piece
+                  .getSameColorPieces(this.chessboard)
+                  .find(
+                    (piece) =>
+                      piece.type === "rook" &&
+                      piece.curSquare.column === (square.column === 7 ? 8 : 1)
+                  ),
+                this.chessboard
+              );
+              availableSquares.forEach((square) =>
+                square.element.classList.remove("potential-square")
+              );
+              this.active_square_piece = null;
+            } else {
+              console.log("Piece cannot go there. Please try again ");
+              this.active_square_piece = null;
+            }
           }
         }
       }

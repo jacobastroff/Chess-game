@@ -29,6 +29,26 @@ class King extends Piece {
     const squaresWithCheck = squaresWithoutCheck.filter(
       (square) => !this.isInCheck(chessboard, square)
     );
+    const rooks = this.getSameColorPieces(chessboard).filter(
+      (piece) => piece.type === "rook"
+    );
+    rooks.forEach(
+      function (rook) {
+        if (this.canCastle(rook, chessboard)) {
+          // console.log(`THIS IS ${this}`);
+          const leftOrRightMultiplier = rook.curSquare.column === 8 ? 2 : -2;
+          squaresWithCheck.push(
+            allSquares.find(
+              (square) =>
+                square.column ===
+                  this.curSquare.column + 1 * leftOrRightMultiplier &&
+                square.row === (this.color === "white" ? 1 : 8)
+            )
+          );
+        }
+      }.bind(this)
+    );
+    console.log(squaresWithCheck);
     return squaresWithCheck;
   }
   isInCheck(chessboard, specificSquare = undefined) {
@@ -68,7 +88,9 @@ class King extends Piece {
       squaresAvailable = rook
         .getAvailableSquares(chessboard)
         .filter(
-          (square) => square.row === 1 && square.column > this.curSquare.column
+          (square) =>
+            square.row === (this.color === "white" ? 1 : 8) &&
+            square.column > this.curSquare.column
         );
 
       neededAvailbleSquares = 2;
@@ -77,7 +99,9 @@ class King extends Piece {
       squaresAvailable = rook
         .getAvailableSquares(chessboard)
         .filter(
-          (square) => square.row === 1 && square.column < this.curSquare.column
+          (square) =>
+            square.row === (this.color === "white" ? 1 : 8) &&
+            square.column < this.curSquare.column
         );
       neededAvailbleSquares = 3;
     }
@@ -96,14 +120,17 @@ class King extends Piece {
     }
   }
   castle(rook, chessboard) {
-    const leftRight =
-      rook.curSquare.column > this.curSquare.column ? "right" : "left";
-    if (leftRight === "right") {
-      this.moveTo(chessboard.getSquares()[0][6]);
-      rook.moveTo(chessboard.getSquares()[0][5]);
-    } else {
-      this.moveTo(chessboard.getSquares()[0][2]);
-      rook.moveTo(chessboard.getSquares()[0][3]);
+    if (this.color === "white") {
+      const leftRight =
+        rook.curSquare.column > this.curSquare.column ? "right" : "left";
+      const castlingRow = this.color === "white" ? 0 : 7;
+      if (leftRight === "right") {
+        this.moveTo(chessboard.getSquares()[castlingRow][6], chessboard);
+        rook.moveTo(chessboard.getSquares()[castlingRow][5], chessboard);
+      } else {
+        this.moveTo(chessboard.getSquares()[castlingRow][2], chessboard);
+        rook.moveTo(chessboard.getSquares()[castlingRow][3], chessboard);
+      }
     }
   }
   isBehindPinnedPiece(piece, chessboard) {
@@ -123,7 +150,9 @@ class King extends Piece {
         !opposingPiece.isCheckingKing(
           opposingPiece.getAvailableSquares(chessboard)
         ) &&
-        !(opposingPiece.curSquare.column !== column && piece.type === "pawn")
+        (piece.type === "pawn"
+          ? opposingPiece.curSquare.column !== column
+          : true)
       );
     });
   }
@@ -143,8 +172,7 @@ class King extends Piece {
         ) &&
         !opposingPiece.isCheckingKing(
           opposingPiece.getAvailableSquares(chessboard)
-        ) &&
-        !(opposingPiece.curSquare.column !== column && piece.type === "pawn")
+        )
     );
   }
   hasBeenCheckmated(chessboard) {
