@@ -49,7 +49,6 @@ class Piece {
       }
       if (this.type === "king" || this.type === "rook") {
         this.firstMove = false;
-        this.canCastle = false;
       }
       if (square?.isOccupied) {
         square?.piece?.delete(square?.piece?.getSameColorPieces(chessboard));

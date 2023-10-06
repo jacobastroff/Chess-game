@@ -34,7 +34,8 @@ class King extends Piece {
     );
     rooks.forEach(
       function (rook) {
-        if (this.canCastle(rook, chessboard)) {
+        console.log(this);
+        if (this?.canCastle(rook, chessboard)) {
           // console.log(`THIS IS ${this}`);
           const leftOrRightMultiplier = rook.curSquare.column === 8 ? 2 : -2;
           squaresWithCheck.push(
