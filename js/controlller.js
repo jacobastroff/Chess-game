@@ -23,26 +23,36 @@ chessGame.black_pieces.forEach((piece) =>
   )
 );
 chessGame.setup();
-
+// console.log(black_pieces[0].getOpposingPieces(chessboard));
+// console.log(white_pieces[0].getOpposingPieces(chessboard));
 //CHECKMATE
 //TEST 1
 // const blackKing = black_pieces.find((piece) => piece.type === "king");
 // console.log(blackKing.hasBeenCheckmated(chessboard));
 // const queen = white_pieces.find((piece) => piece.type === "queen");
-// queen.moveTo(chessboard.getSquares()[6][5]);
+// queen.moveTo(chessboard.getSquares()[6][5], chessboard);
 // console.log(blackKing.hasBeenCheckmated(chessboard));
 // console.log(blackKing.getAvailableSquares(chessboard));
 // const bishop = white_pieces.find((piece) => piece.type === "bishop");
-// bishop.moveTo(chessboard.getSquares()[5][6]);
+// bishop.moveTo(chessboard.getSquares()[5][6], chessboard);
 // console.log(
 //   bishop.getAvailableSquares(chessboard, undefined, undefined, undefined, true)
 // );
+// console.log(blackKing.hasBeenCheckmated(chessboard));
 
 //TEST 2
 // const blackKing = black_pieces.find((piece) => piece.type === "king");
 
 // const queen = white_pieces.find((piece) => piece.type === "queen");
-// queen.moveTo(chessboard.getSquares()[4][7]);
+// const pawn = black_pieces.find(
+//   (piece) => piece.type === "pawn" && piece.curSquare.column === 6
+// );
+// pawn.moveTo(chessboard.getSquares()[2][3], chessboard);
+// const second_pawn = black_pieces.find(
+//   (piece) => piece.type === "pawn" && piece.curSquare.column === 7
+// );
+// second_pawn.moveTo(chessboard.getSquares()[2][4], chessboard);
+// queen.moveTo(chessboard.getSquares()[4][7], chessboard);
 // console.log(blackKing.isInCheck(chessboard));
 
 // console.log(blackKing.hasBeenCheckmated(chessboard));
@@ -51,7 +61,7 @@ chessGame.setup();
 // const rook = white_pieces.find((piece) => piece.type === "rook");
 // const king = black_pieces.find((piece) => piece.type === "king");
 // console.log(king.getAvailableSquares(chessboard));
-// rook.moveTo(chessboard.getSquares()[3][4]);
+// rook.moveTo(chessboard.getSquares()[3][4], chessboard);
 // console.log(rook.isCheckingKing(rook.getAvailableSquares(chessboard)));
 // console.log(rook.getAvailableSquares(chessboard));
 // console.log(rook.getLineToKingSquares(chessboard));

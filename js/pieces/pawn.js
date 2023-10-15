@@ -109,5 +109,50 @@ class Pawn extends Piece {
   getLineToKingSquares() {
     return [this.curSquare.square];
   }
+  isCheckingKing(availableSquares, square = undefined, chessboard) {
+    console.log(availableSquares, this);
+    if (!square) {
+      return availableSquares.some(
+        (square) =>
+          square.pieceOccupyingName.endsWith("king") &&
+          square.column !== this.curSquare.column &&
+          square.row !== this.curSquare.row
+      );
+    } else {
+      const isOccupied = square.isOccupied;
+      const pieceOccupyingName = square.pieceOccupyingName;
+      square.isOccupied = true;
+      square.pieceOccupyingName = `${
+        this.color === "white" ? "black" : "white"
+      } king`;
+      //METHOD 1
+
+      // console.log(square, this, this.getAvailableSquares(chessboard));
+      // const status = this.canGoTo(square, this.getAvailableSquares(chessboard));
+      // square.isOccupied = isOccupied;
+      // square.pieceOccupyingName = pieceOccupyingName;
+      // return status;
+      // METHOD 2
+      const blackWhiteMultiplier = this.color == "white" ? 1 : -1;
+      const status = chessboard
+        .getSquares()
+        .flat()
+        .filter(
+          (square) =>
+            square.row === this.curSquare.row + 1 * blackWhiteMultiplier &&
+            Math.abs(square.column - this.curSquare.column) === 1
+        )
+        .some(
+          (square) =>
+            square.isOccupied &&
+            square.pieceOccupyingName ===
+              `${this.color === "white" ? "black" : "white"} king`
+        );
+      console.log(status);
+      square.isOccupied = isOccupied;
+      square.pieceOccupyingName = pieceOccupyingName;
+      return status;
+    }
+  }
 }
 export default Pawn;

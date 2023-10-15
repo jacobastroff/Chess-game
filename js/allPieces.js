@@ -18,13 +18,13 @@ const black_pieces = [
 const white_pieces = [
   new Rook("white", "left"),
   new Rook("white", "right"),
-  // new Knight("white", "left"),
-  // new Knight("white", "right"),
-  // new Bishop("white", "right"),
-  // new Bishop("white", "left"),
-  // new Queen("white"),
+  new Knight("white", "left"),
+  new Knight("white", "right"),
+  new Bishop("white", "right"),
+  new Bishop("white", "left"),
+  new Queen("white"),
   new King("white"),
   ...Array.from(new Array(8), (_, i) => new Pawn("white", i)),
 ];
-// white_pieces.splice(-4, 2);
+black_pieces.splice(-4, 1);
 export { white_pieces, black_pieces };

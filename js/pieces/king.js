@@ -29,12 +29,13 @@ class King extends Piece {
     const squaresWithCheck = squaresWithoutCheck.filter(
       (square) => !this.isInCheck(chessboard, square)
     );
+    // console.log(this.pieceChecking(chessboard));
     const rooks = this.getSameColorPieces(chessboard).filter(
       (piece) => piece.type === "rook"
     );
     rooks.forEach(
       function (rook) {
-        console.log(this);
+        // console.log(this);
         if (this?.canCastle(rook, chessboard)) {
           // console.log(`THIS IS ${this}`);
           const leftOrRightMultiplier = rook.curSquare.column === 8 ? 2 : -2;
@@ -49,22 +50,22 @@ class King extends Piece {
         }
       }.bind(this)
     );
-    console.log(squaresWithCheck);
+    // console.log(squaresWithCheck);
     return squaresWithCheck;
   }
   isInCheck(chessboard, specificSquare = undefined) {
-    console.log(this.getOpposingPieces(chessboard));
+    // console.log(this.getOpposingPieces(chessboard));
     if (!specificSquare) {
       // console.log(this.getOpposingPieces(chessboard));
       return this.getOpposingPieces(chessboard)
         .filter((piece) => piece.type !== "king")
         .some((piece) => {
-          console.log(piece);
+          // console.log(piece);
           return piece.isCheckingKing(piece.getAvailableSquares(chessboard));
         });
     } else {
-      return this.getOpposingPieces(chessboard)
-        .filter((piece) => piece.type !== "king")
+      const status_one = this.getOpposingPieces(chessboard)
+        .filter((piece) => piece.type !== "king" && piece.type !== "pawn")
         .some((piece) =>
           piece.canGoTo(
             specificSquare,
@@ -77,6 +78,21 @@ class King extends Piece {
             )
           )
         );
+      console.log(
+        this.getOpposingPieces(chessboard).filter(
+          (piece) => piece.type === "pawn"
+        )
+      );
+      const status_two = this.getOpposingPieces(chessboard)
+        .filter((piece) => piece.type === "pawn")
+        .some((pawn) =>
+          pawn.isCheckingKing(
+            pawn.getAvailableSquares(chessboard),
+            specificSquare,
+            chessboard
+          )
+        );
+      return status_one && status_two;
     }
   }
   canCastle(rook, chessboard) {
@@ -84,7 +100,7 @@ class King extends Piece {
       rook.curSquare.column > this.curSquare.column ? "right" : "left";
     let squaresAvailable;
     let neededAvailbleSquares;
-    console.log(rook.getAvailableSquares(chessboard), this.curSquare.column);
+    // console.log(rook.getAvailableSquares(chessboard), this.curSquare.column);
     if (leftRight === "right") {
       squaresAvailable = rook
         .getAvailableSquares(chessboard)
@@ -106,7 +122,7 @@ class King extends Piece {
         );
       neededAvailbleSquares = 3;
     }
-    console.log(squaresAvailable, neededAvailbleSquares);
+    // console.log(squaresAvailable, neededAvailbleSquares);
     if (squaresAvailable.length >= neededAvailbleSquares) {
       if (this.isInCheck(chessboard)) return false;
       if (
@@ -138,7 +154,7 @@ class King extends Piece {
     const column = piece.curSquare.column;
     const piecesMinusPinned = [...this.getSameColorPieces(chessboard)];
     piecesMinusPinned.splice(piecesMinusPinned.indexOf(piece), 1);
-    console.log(piecesMinusPinned);
+    // console.log(piecesMinusPinned);
     return this.getOpposingPieces(chessboard).some((opposingPiece) => {
       return (
         opposingPiece.canGoTo(
@@ -161,7 +177,7 @@ class King extends Piece {
     const column = piece.curSquare.column;
     const piecesMinusPinned = [...this.getSameColorPieces(chessboard)];
     piecesMinusPinned.splice(piecesMinusPinned.indexOf(piece), 1);
-    console.log(piecesMinusPinned);
+    // console.log(piecesMinusPinned);
     return this.getOpposingPieces(chessboard).find(
       (opposingPiece) =>
         opposingPiece.canGoTo(
@@ -212,6 +228,12 @@ class King extends Piece {
       }
     }
     return false;
+  }
+  pieceChecking(chessboard) {
+    // console.log(this.getOpposingPieces());
+    return this.getOpposingPieces().filter((piece) =>
+      piece.isCheckingKing(piece.getAvailableSquares(chessboard))
+    );
   }
 }
 
