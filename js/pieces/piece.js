@@ -51,7 +51,10 @@ class Piece {
         this.firstMove = false;
       }
       if (square?.isOccupied) {
-        square?.piece?.delete(square?.piece?.getSameColorPieces(chessboard));
+        square?.piece?.delete(
+          square?.piece?.getSameColorPieces(chessboard),
+          chessboard
+        );
       }
       this.curSquare = {
         row: square.row,
@@ -135,9 +138,16 @@ class Piece {
       )
       .map((square) => square.piece);
   }
-  delete(group) {
+  delete(group, chessboard) {
     group.splice(group.indexOf(this), 1);
+    this.getAvailableSquares(chessboard).forEach((square) =>
+      square.element.classList.remove("potential-square")
+    );
     this.#el.style.display = "none";
+    chessboard
+      .getSquares()
+      .flat()
+      .find((square) => square.piece === this).piece = "";
   }
 }
 

@@ -23,7 +23,10 @@ class ChessGame {
           this.active_square_piece = this.curColorPieces.find(
             (piece) => piece.curSquare.square.element === e.target
           );
-          if (this.active_square_piece === undefined)
+          if (
+            this.active_square_piece === undefined ||
+            this.active_square_piece.color !== this.curColor
+          )
             throw new Error("No available piece on that square");
           // console.log(`THIS IS ${this.prevSquareEl}`);
           this.prevSquareEl?.classList?.remove("active-square");
@@ -106,9 +109,11 @@ class ChessGame {
                 square.element.classList.remove("potential-square")
               );
               this.active_square_piece = null;
+              this.switchTurn();
+
               // prevSquareEl.classList.remove("active-square");
             } else {
-              // console.log("Piece cannot go there. Please try again ");
+              console.log("Piece cannot go there. Please try again ");
               this.active_square_piece = null;
               // console.log(this.prevSquareEl, "HELLO");
             }
@@ -128,6 +133,7 @@ class ChessGame {
                 square.element.classList.remove("potential-square")
               );
               this.active_square_piece = null;
+              this.switchTurn();
             } else {
               console.log("Piece cannot go there. Please try again ");
               this.active_square_piece = null;
@@ -139,6 +145,11 @@ class ChessGame {
       console.error(err.message);
     }
   }
-  switchTurn() {}
+  switchTurn() {
+    // this.curColorPieces.forEach((piece) => (piece.disabled = true));
+    this.curColor = this.curColor === "white" ? "black" : "white";
+    this.curColorPieces =
+      this.curColor === "white" ? this.white_pieces : this.black_pieces;
+  }
 }
 export default ChessGame;
