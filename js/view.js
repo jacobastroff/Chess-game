@@ -43,14 +43,17 @@ class ChessGame {
           //   king.isBehindPinnedPiece(this.active_square_piece, this.chessboard)
           // );
           this.active_square_piece
-            .getAvailableSquares(
-              this.chessboard,
-              undefined,
-              king.isBehindPinnedPiece(
-                this.active_square_piece,
-                this.chessboard
+            .filterOutDisabledSquares(
+              this.active_square_piece.getAvailableSquares(
+                this.chessboard,
+                undefined,
+                king.isBehindPinnedPiece(
+                  this.active_square_piece,
+                  this.chessboard
+                ),
+                king.piecePinning(this.active_square_piece, this.chessboard)
               ),
-              king.piecePinning(this.active_square_piece, this.chessboard)
+              this.chessboard
             )
             .forEach((square) =>
               square.element.classList.add("potential-square")
@@ -67,20 +70,27 @@ class ChessGame {
           let availableSquares;
           if (this.active_square_piece.type !== "king") {
             // console.log("GRR");
+            console.log(this);
             availableSquares = this.prevAvailableSquares =
-              this.active_square_piece.getAvailableSquares(
-                this.chessboard,
-                undefined,
-                king.isBehindPinnedPiece(
-                  this.active_square_piece,
-                  this.chessboard
+              this.active_square_piece.filterOutDisabledSquares(
+                this.active_square_piece.getAvailableSquares(
+                  this.chessboard,
+                  undefined,
+                  king.isBehindPinnedPiece(
+                    this.active_square_piece,
+                    this.chessboard
+                  ),
+                  king.piecePinning(this.active_square_piece, this.chessboard)
                 ),
-                king.piecePinning(this.active_square_piece, this.chessboard)
+                this.chessboard
               );
           } else {
             // console.log("LOVE U");
             availableSquares = this.prevAvailableSquares =
-              this.active_square_piece.getAvailableSquares(this.chessboard);
+              this.active_square_piece.filterOutDisabledSquares(
+                this.active_square_piece.getAvailableSquares(this.chessboard),
+                this.chessboard
+              );
           }
           // console.log(square);
           if (
@@ -92,14 +102,17 @@ class ChessGame {
             // console.log("HELLO WORLD");
             const canGoStatus = this.active_square_piece.canGoTo(
               square,
-              this.active_square_piece.getAvailableSquares(
-                this.chessboard,
-                undefined,
-                king.isBehindPinnedPiece(
-                  this.active_square_piece,
-                  this.chessboard
+              this.active_square_piece.filterOutDisabledSquares(
+                this.active_square_piece.getAvailableSquares(
+                  this.chessboard,
+                  undefined,
+                  king.isBehindPinnedPiece(
+                    this.active_square_piece,
+                    this.chessboard
+                  ),
+                  king.piecePinning(this.active_square_piece, this.chessboard)
                 ),
-                king.piecePinning(this.active_square_piece, this.chessboard)
+                this.chessboard
               )
             );
             if (canGoStatus) {
