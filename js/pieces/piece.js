@@ -1,4 +1,5 @@
 "use strict";
+import { white_pieces, black_pieces } from "../allPieces.js";
 class Piece {
   color;
   #position;
@@ -118,25 +119,27 @@ class Piece {
   }
 
   getOpposingPieces(chessboard) {
-    return chessboard
-      .getSquares()
-      .flat()
-      .filter(
-        (square) =>
-          square.isOccupied &&
-          !square.pieceOccupyingName?.startsWith(this.color)
-      )
-      .map((square) => square.piece);
+    // return chessboard
+    //   .getSquares()
+    //   .flat()
+    //   .filter(
+    //     (square) =>
+    //       square.isOccupied &&
+    //       !square.pieceOccupyingName?.startsWith(this.color)
+    //   )
+    //   .map((square) => square.piece);
+    return this.color === "white" ? black_pieces : white_pieces;
   }
   getSameColorPieces(chessboard) {
-    return chessboard
-      .getSquares()
-      .flat()
-      .filter(
-        (square) =>
-          square.isOccupied && square.pieceOccupyingName?.startsWith(this.color)
-      )
-      .map((square) => square.piece);
+    // return chessboard
+    //   .getSquares()
+    //   .flat()
+    //   .filter(
+    //     (square) =>
+    //       square.isOccupied && square.pieceOccupyingName?.startsWith(this.color)
+    //   )
+    //   .map((square) => square.piece);
+    return this.color === "black" ? black_pieces : white_pieces;
   }
   delete(group, chessboard) {
     group.splice(group.indexOf(this), 1);

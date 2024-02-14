@@ -64,35 +64,36 @@ class King extends Piece {
           return piece.isCheckingKing(piece.getAvailableSquares(chessboard));
         });
     } else {
-      const status_one = this.getOpposingPieces(chessboard)
-        .filter((piece) => piece.type !== "king" && piece.type !== "pawn")
-        .some((piece) =>
-          piece.canGoTo(
-            specificSquare,
-            piece.getAvailableSquares(
-              chessboard,
-              undefined,
-              undefined,
-              undefined,
-              true
+      return (
+        this.getOpposingPieces(chessboard)
+          .filter((piece) => piece.type !== "king" && piece.type !== "pawn")
+          .some((piece) =>
+            piece.canGoTo(
+              specificSquare,
+              piece.getAvailableSquares(
+                chessboard,
+                undefined,
+                undefined,
+                undefined,
+                true
+              )
+            )
+          ) &&
+        this.getOpposingPieces(chessboard)
+          .filter((piece) => piece.type === "pawn")
+          .some((pawn) =>
+            pawn.canGoTo(
+              specificSquare,
+              pawn.getAvailableSquares(
+                chessboard,
+                true,
+                undefined,
+                undefined,
+                true
+              )
             )
           )
-        );
-      console.log(
-        this.getOpposingPieces(chessboard).filter(
-          (piece) => piece.type === "pawn"
-        )
       );
-      const status_two = this.getOpposingPieces(chessboard)
-        .filter((piece) => piece.type === "pawn")
-        .some((pawn) =>
-          pawn.isCheckingKing(
-            pawn.getAvailableSquares(chessboard),
-            specificSquare,
-            chessboard
-          )
-        );
-      return status_one && status_two;
     }
   }
   canCastle(rook, chessboard) {
@@ -178,19 +179,24 @@ class King extends Piece {
     const piecesMinusPinned = [...this.getSameColorPieces(chessboard)];
     piecesMinusPinned.splice(piecesMinusPinned.indexOf(piece), 1);
     // console.log(piecesMinusPinned);
-    return this.getOpposingPieces(chessboard).find(
-      (opposingPiece) =>
-        opposingPiece.canGoTo(
-          piece.curSquare.square,
-          opposingPiece.getAvailableSquares(chessboard)
-        ) &&
-        opposingPiece.isCheckingKing(
-          opposingPiece.getAvailableSquares(chessboard, piece.curSquare.square)
-        ) &&
-        !opposingPiece.isCheckingKing(
-          opposingPiece.getAvailableSquares(chessboard)
-        )
-    );
+    return this.getOpposingPieces(chessboard)
+      .filter((piece) => piece.type !== "king" && piece.type !== "pawn")
+      .find(
+        (opposingPiece) =>
+          opposingPiece.canGoTo(
+            piece.curSquare.square,
+            opposingPiece.getAvailableSquares(chessboard)
+          ) &&
+          opposingPiece.isCheckingKing(
+            opposingPiece.getAvailableSquares(
+              chessboard,
+              piece.curSquare.square
+            )
+          ) &&
+          !opposingPiece.isCheckingKing(
+            opposingPiece.getAvailableSquares(chessboard)
+          )
+      );
   }
   hasBeenCheckmated(chessboard) {
     if (this.isInCheck(chessboard)) {

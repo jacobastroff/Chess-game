@@ -104,12 +104,13 @@ class ChessGame {
             );
             if (canGoStatus) {
               this.active_square_piece.moveTo(square, this.chessboard);
+              this.switchTurn();
               // this.active_square_piece.getSameColorPieces.forEach(piece=>piece.disabled === true)
               availableSquares.forEach((square) =>
                 square.element.classList.remove("potential-square")
               );
               this.active_square_piece = null;
-              this.switchTurn();
+              // this.switchTurn();
 
               // prevSquareEl.classList.remove("active-square");
             } else {
@@ -133,7 +134,7 @@ class ChessGame {
                 square.element.classList.remove("potential-square")
               );
               this.active_square_piece = null;
-              this.switchTurn();
+              // this.switchTurn();
             } else {
               console.log("Piece cannot go there. Please try again ");
               this.active_square_piece = null;

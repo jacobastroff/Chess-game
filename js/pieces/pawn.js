@@ -14,7 +14,7 @@ class Pawn extends Piece {
   }
   getAvailableSquares(
     chessboard,
-    _,
+    isCheckingAllSquares = undefined,
     isPinned = undefined,
     piecePinning = undefined,
     isCheckingLineOfSightKing = undefined
@@ -54,17 +54,20 @@ class Pawn extends Piece {
         allPotentialSquares.push(nextNextSquare);
       }
     }
-
-    diagonals.forEach((square) => {
-      if (
-        square?.isOccupied &&
-        (!square?.pieceOccupyingName.startsWith(this.color) ||
-          isCheckingLineOfSightKing) &&
-        (!isPinned || piecePinning === square?.piece)
-      ) {
-        allPotentialSquares.push(square);
-      }
-    });
+    if (!isCheckingAllSquares) {
+      diagonals.forEach((square) => {
+        if (
+          square?.isOccupied &&
+          (!square?.pieceOccupyingName.startsWith(this.color) ||
+            isCheckingLineOfSightKing) &&
+          (!isPinned || piecePinning === square?.piece)
+        ) {
+          allPotentialSquares.push(square);
+        }
+      });
+    } else {
+      allPotentialSquares.push(...diagonals);
+    }
     const allAvailableSquares = [...new Set(allPotentialSquares)].filter(
       (square) => square
     );

@@ -39,6 +39,7 @@ chessGame.setup();
 //   bishop.getAvailableSquares(chessboard, undefined, undefined, undefined, true)
 // );
 // console.log(blackKing.hasBeenCheckmated(chessboard));
+// console.log(blackKing.getAvailableSquares(chessboard));
 
 //TEST 2
 // const blackKing = black_pieces.find((piece) => piece.type === "king");
@@ -557,11 +558,14 @@ chessGame.setup();
 // );
 // console.log(king.canCastle(rook2, chessboard));
 // const queen = black_pieces.find((piece) => piece.type === "queen");
-// queen.moveTo(chessboard.getSquares()[1][3]);
 // console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+
+// queen.moveTo(chessboard.getSquares()[1][3], chessboard);
+// console.log(queen.isCheckingKing(queen.getAvailableSquares(chessboard)));
+
 // console.log(king.isInCheck(chessboard));
 // console.log(king.canCastle(rook, chessboard));
 
-//CASTLING ACTION
+// CASTLING ACTION
 // const king = white_pieces.find((piece) => piece.type === "king");
 // setTimeout(() => king.castle(rook, chessboard), 3000);
