@@ -152,6 +152,14 @@ class Piece {
       .flat()
       .find((square) => square.piece === this).piece = "";
   }
+  pretendToMoveTo(square, chessboard) {
+    this.curSquare.square.isOccupied = false;
+    this.curSquare.square.pieceOccupyingName = "";
+    this.curSquare.square.piece = undefined;
+    this.curSquare.square.isOccupied = true;
+    this.curSquare.square.pieceOccupyingName = `${this.color} ${this.type}`;
+    this.curSquare.square.piece = this;
+  }
 }
 
 export { Piece };
