@@ -6,6 +6,7 @@ class ChessGame {
   #el = document.querySelector(".chess-board");
   active_square_piece = null;
   prevSquareEl = null;
+  prevActiveSquarePiece = null;
   constructor(color_to_start, white_pieces, black_pieces, chessboard) {
     this.curColor = color_to_start;
     this.white_pieces = white_pieces;
@@ -146,6 +147,7 @@ class ChessGame {
             availableSquares.forEach((square) =>
               square.element.classList.remove("potential-square")
             );
+            this.prevActiveSquarePiece = this.active_square_piece;
             this.active_square_piece = null;
             // this.switchTurn();
 
@@ -208,26 +210,28 @@ class ChessGame {
     this.disableBoard();
     this.enablePromotionModule(this.active_square_piece.color);
   }
-  selectPromotionPiece(e, active_square_piece) {
-    console.log(this.active_square_piece);
+  selectPromotionPiece(e) {
+    const group =
+      this.curColor === "white" ? this.white_pieces : this.black_pieces;
+    console.log(group);
     const imageSelected = e.target.closest("img");
     if (imageSelected) {
       const pieceName = imageSelected.alt.split(" ")[1];
       console.log(this.active_square_piece);
       let piece;
       if (pieceName === "bishop") {
-        piece = new Bishop(this.active_square_piece.color);
+        piece = new Bishop(this.prevActiveSquarePiece.color);
       } else if (pieceName === "knight") {
-        piece = new Knight(this.active_square_piece.color);
+        piece = new Knight(this.prevActiveSquarePiece.color);
       } else if (pieceName === "rook") {
-        piece = new Rook(this.active_square_piece.color);
+        piece = new Rook(this.prevActiveSquarePiece.color);
       } else {
-        piece = new Queen(this.active_square_piece.color);
+        piece = new Queen(this.prevActiveSquarePiece.color);
       }
-      this.active_square_piece.promoteTo(
+      this.prevActiveSquarePiece.promoteTo(
         piece,
-        this.active_square_piece.curSquare.square,
-        this.active_square_piece.getSameColorPieces(this.chessboard),
+        this.prevActiveSquarePiece.curSquare.square,
+        this.prevActiveSquarePiece.getSameColorPieces(this.chessboard),
         this.chessboard
       );
       this.enableBoard();
