@@ -23,6 +23,8 @@ chessGame.black_pieces.forEach((piece) =>
   )
 );
 chessGame.setup();
+// DELETE AFTERWARDS
+
 // console.log(black_pieces[0].getOpposingPieces(chessboard));
 // console.log(white_pieces[0].getOpposingPieces(chessboard));
 //CHECKMATE

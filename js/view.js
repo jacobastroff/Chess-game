@@ -1,4 +1,7 @@
 import Bishop from "../js/pieces/bishop.js";
+import Knight from "../js/pieces/knight.js";
+import Rook from "../js/pieces/rook.js";
+import Queen from "../js/pieces/queen.js";
 class ChessGame {
   #el = document.querySelector(".chess-board");
   active_square_piece = null;
@@ -13,8 +16,14 @@ class ChessGame {
   }
   setup() {
     this.#el.addEventListener("click", this.activateTurnSequence.bind(this));
+    document
+      .querySelectorAll(".promotion-container-container")
+      .forEach((el) =>
+        el.addEventListener("click", this.selectPromotionPiece.bind(this))
+      );
   }
   activateTurnSequence(e) {
+    // this.disableBoard();
     // try {
     // console.log(e.target);
     if (e.target.closest(".square")) {
@@ -124,12 +133,13 @@ class ChessGame {
                 (this.active_square_piece.color === "white" ? 8 : 1)
             ) {
               console.log(this.active_square_piece?.curSquare?.square);
-              this.active_square_piece.promoteTo(
-                new Bishop(this.active_square_piece.color),
-                this.active_square_piece?.curSquare?.square,
-                this.active_square_piece.getSameColorPieces(this.chessboard),
-                this.chessboard
-              );
+              this.initiatePromotionSequence();
+              // this.active_square_piece.promoteTo(
+              //   new Bishop(this.active_square_piece.color),
+              //   this.active_square_piece?.curSquare?.square,
+              //   this.active_square_piece.getSameColorPieces(this.chessboard),
+              //   this.chessboard
+              // );
             }
             this.switchTurn();
             // this.active_square_piece.getSameColorPieces.forEach(piece=>piece.disabled === true)
@@ -181,6 +191,48 @@ class ChessGame {
 
     // USE MARKER TO VISUALLY SHOW WHO'S TURN IT IS
     //ALSO SCHOLARS MATE DOESNT WORK
+  }
+  disableBoard() {
+    this.#el.style.pointerEvents = "none";
+  }
+  enableBoard() {
+    this.#el.style.pointerEvents = "all";
+  }
+  disablePromotionModule(color) {
+    document.querySelector(`.promotion-${color}`).classList.add("disabled");
+  }
+  enablePromotionModule(color) {
+    document.querySelector(`.promotion-${color}`).classList.remove("disabled");
+  }
+  initiatePromotionSequence() {
+    this.disableBoard();
+    this.enablePromotionModule(this.active_square_piece.color);
+  }
+  selectPromotionPiece(e, active_square_piece) {
+    console.log(this.active_square_piece);
+    const imageSelected = e.target.closest("img");
+    if (imageSelected) {
+      const pieceName = imageSelected.alt.split(" ")[1];
+      console.log(this.active_square_piece);
+      let piece;
+      if (pieceName === "bishop") {
+        piece = new Bishop(this.active_square_piece.color);
+      } else if (pieceName === "knight") {
+        piece = new Knight(this.active_square_piece.color);
+      } else if (pieceName === "rook") {
+        piece = new Rook(this.active_square_piece.color);
+      } else {
+        piece = new Queen(this.active_square_piece.color);
+      }
+      this.active_square_piece.promoteTo(
+        piece,
+        this.active_square_piece.curSquare.square,
+        this.active_square_piece.getSameColorPieces(this.chessboard),
+        this.chessboard
+      );
+      this.enableBoard();
+      this.disablePromotionModule(this.curColor);
+    }
   }
 }
 export default ChessGame;
