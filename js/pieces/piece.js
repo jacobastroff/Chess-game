@@ -201,14 +201,15 @@ class Piece {
     const curSquare = this.curSquare.square;
     return availableSquares.filter((square) => {
       const pieceTaken = this.pretendToMoveTo(square, chessboard);
-      const status = !this.getSameColorPieces(chessboard)
+      const status1 = !this.getSameColorPieces(chessboard)
         .find((piece) => piece.type === "king")
         .isInCheck(chessboard);
       pieceTaken?.hasOwnProperty("pretend_disabled_checking_king")
         ? (pieceTaken.pretend_disabled_checking_king = false)
         : null;
       this.pretendToMoveTo(curSquare, chessboard);
-      return status;
+      pieceTaken?.pretendToMoveTo(square, chessboard);
+      return status1;
     });
   }
 }
