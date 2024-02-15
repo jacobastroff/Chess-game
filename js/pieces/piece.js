@@ -193,6 +193,19 @@ class Piece {
         pieceOccupying?.hasOwnProperty("pretend_disabled_checking_king")
           ? (pieceOccupying.pretend_disabled_checking_king = true)
           : null;
+        if (
+          pieceOccupying
+            .getSameColorPieces(chessboard)
+            .some((piece) =>
+              piece.canGoTo(
+                square,
+                piece.getAvailableSquares(chessboard, square)
+              )
+            ) &&
+          this.type === "king"
+        ) {
+          pieceOccupying.pretend_disabled_checking_king = false;
+        }
         return pieceOccupying;
       }
     }
