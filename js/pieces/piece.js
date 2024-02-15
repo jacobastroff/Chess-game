@@ -73,6 +73,14 @@ class Piece {
     this.curSquare.square.pieceOccupyingName = `${this.color} ${this.type}`;
     this.curSquare.square.piece = this;
     this.#position = { x: square.xCor, y: square.yCor };
+    if (this.type === "pawn" && this?.is_enpassaning(chessboard)) {
+      console.log(true);
+      const en_passant_piece = this?.is_enpassaning(chessboard);
+      en_passant_piece.delete(
+        en_passant_piece.getSameColorPieces(chessboard),
+        chessboard
+      );
+    }
     this.getOpposingPieces(chessboard)
       .filter((piece) => piece.type === "pawn")
       .forEach((piece) => (piece.en_passant_status = false));

@@ -163,5 +163,13 @@ class Pawn extends Piece {
     piece.init(square, chessboard);
     group.push(piece);
   }
+  is_enpassaning(chessboard) {
+    return this.getOpposingPieces(chessboard).find(
+      (piece) =>
+        piece.curSquare?.square?.row ===
+          this.curSquare?.square?.row + 1 * (this.color === "white" ? -1 : 1) &&
+        piece.en_passant_status === true
+    );
+  }
 }
 export default Pawn;
