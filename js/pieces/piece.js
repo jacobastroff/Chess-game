@@ -78,7 +78,8 @@ class Piece {
       const en_passant_piece = this?.is_enpassaning(chessboard);
       en_passant_piece.delete(
         en_passant_piece.getSameColorPieces(chessboard),
-        chessboard
+        chessboard,
+        true
       );
     }
     this.getOpposingPieces(chessboard)
@@ -153,8 +154,13 @@ class Piece {
     //   .map((square) => square.piece);
     return this.color === "black" ? black_pieces : white_pieces;
   }
-  delete(group, chessboard) {
+  delete(group, chessboard, hasBeenEnpassant) {
     group.splice(group.indexOf(this), 1);
+    if (hasBeenEnpassant) {
+      this.curSquare.square.isOccupied = false;
+      this.curSquare.square.pieceOccupying = undefined;
+      this.curSquare.square.pieceOccupyingName = "";
+    }
     this.getAvailableSquares(chessboard).forEach((square) =>
       square.element.classList.remove("potential-square")
     );

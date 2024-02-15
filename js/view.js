@@ -235,7 +235,7 @@ class ChessGame {
         this.chessboard
       );
       this.enableBoard();
-      this.disablePromotionModule(this.curColor);
+      this.disablePromotionModule(this.prevActiveSquarePiece.color);
     }
   }
 }
