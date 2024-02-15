@@ -1,6 +1,6 @@
 import { Piece } from "./piece.js";
 class Knight extends Piece {
-  constructor(color, side) {
+  constructor(color, side = undefined) {
     super(color);
     this.image = `./Assets/${this.color}-knight.svg`;
     this.type = "knight";
@@ -9,11 +9,11 @@ class Knight extends Piece {
   get startingCoord() {
     let x;
     if (this.color == "white") {
-      if (this.side == "right") x = 6;
+      if (this?.side == "right") x = 6;
       else x = 1;
       return [0, x];
     } else {
-      if (this.side == "right") x = 6;
+      if (this?.side == "right") x = 6;
       else x = 1;
       return [7, x];
     }
