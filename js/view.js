@@ -172,6 +172,8 @@ class ChessGame {
             availableSquares.forEach((square) =>
               square.element.classList.remove("potential-square")
             );
+            this.switchTurn();
+
             this.active_square_piece = null;
             // this.switchTurn();
           } else {
@@ -187,6 +189,24 @@ class ChessGame {
   }
   switchTurn() {
     // this.curColorPieces.forEach((piece) => (piece.disabled = true));
+    console.log(
+      this.active_square_piece
+        .getOpposingPieces(this.chessboard)
+        .find((piece) => piece.type === "king")
+        .isInCheck(this.chessboard)
+    );
+    console.log(
+      this.active_square_piece
+        .getOpposingPieces(this.chessboard)
+        .find((piece) => piece.type === "king")
+        .hasBeenCheckmated(this.chessboard)
+    );
+    console.log(
+      this.active_square_piece
+        .getSameColorPieces(this.chessboard)
+        .find((piece) => piece.type === "bishop" && piece.side === "right")
+        .getAvailableSquares(this.chessboard)
+    );
     this.curColor = this.curColor === "white" ? "black" : "white";
     this.curColorPieces =
       this.curColor === "white" ? this.white_pieces : this.black_pieces;
