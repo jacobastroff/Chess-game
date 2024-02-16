@@ -27,6 +27,7 @@ chessGame.setup();
 // setTimeout(function () {
 //   chessGame.enableMessagePopup("Hello world", false);
 // }, 2000);
+
 // DELETE AFTERWARDS
 
 // console.log(black_pieces[0].getOpposingPieces(chessboard));

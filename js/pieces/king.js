@@ -23,12 +23,10 @@ class King extends Piece {
           this.curSquare.column === square.column
         )
     );
-    const squaresWithoutCheck = this.getAvailbleSquaresPiece(
+    const kingSquares = this.getAvailbleSquaresPiece(
       potentialSquares.map((square) => [square])
     );
-    const squaresWithCheck = squaresWithoutCheck.filter(
-      (square) => !this.isInCheck(chessboard, square)
-    );
+
     // console.log(this.pieceChecking(chessboard));
     const rooks = this.getSameColorPieces(chessboard).filter(
       (piece) => piece.type === "rook"
@@ -39,8 +37,8 @@ class King extends Piece {
         if (this?.canCastle(rook, chessboard)) {
           // console.log(`THIS IS ${this}`);
           const leftOrRightMultiplier = rook.curSquare.column === 8 ? 2 : -2;
-          console.log("Success");
-          squaresWithCheck.push(
+          // console.log("Success");
+          kingSquares.push(
             allSquares.find(
               (square) =>
                 square.column ===
@@ -49,12 +47,12 @@ class King extends Piece {
             )
           );
         } else {
-          console.log("Fail");
+          // console.log("Fail");
         }
       }.bind(this)
     );
     // console.log(squaresWithCheck);
-    return squaresWithCheck;
+    return kingSquares;
   }
   isInCheck(chessboard, specificSquare = undefined) {
     // console.log(this.getOpposingPieces(chessboard));
@@ -130,15 +128,15 @@ class King extends Piece {
       if (
         squaresAvailable.some((square) => this.isInCheck(chessboard, square))
       ) {
-        console.log("Square is in check");
+        // console.log("Square is in check");
         return false;
       }
-      console.log("Square is not in check");
+      // console.log("Square is not in check");
       if (!rook.firstMove || !this.firstMove) return false;
-      console.log("King and rook first move");
+      // console.log("King and rook first move");
       return true;
     } else {
-      console.log("****");
+      // console.log("****");
       return false;
     }
   }
@@ -279,7 +277,7 @@ class King extends Piece {
     }
   }
   hasSufficientMaterial(chessboard) {
-    console.log(this.getSameColorPieces(chessboard));
+    // console.log(this.getSameColorPieces(chessboard));
     return (
       this.getSameColorPieces(chessboard).some(
         (piece) =>

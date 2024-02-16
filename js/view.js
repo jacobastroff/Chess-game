@@ -214,18 +214,11 @@ class ChessGame {
     // }
   }
   switchTurn() {
-    // this.curColorPieces.forEach((piece) => (piece.disabled = true));
     console.log(
       this.active_square_piece
-        .getOpposingPieces(this.chessboard)
+        .getSameColorPieces(this.chessboard)
         .find((piece) => piece.type === "king")
-        .isInCheck(this.chessboard)
-    );
-    console.log(
-      this.active_square_piece
-        .getOpposingPieces(this.chessboard)
-        .find((piece) => piece.type === "king")
-        .hasBeenCheckmated(this.chessboard)
+        .getAvailableSquares(this.chessboard)
     );
 
     this.curColor = this.curColor === "white" ? "black" : "white";
