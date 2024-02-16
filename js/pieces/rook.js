@@ -4,7 +4,7 @@ class Rook extends Piece {
   // canCastle = false;
 
   firstMove = true;
-  constructor(color, side) {
+  constructor(color, side = undefined) {
     super(color);
     this.image = `./Assets/${this.color}-rook.svg`;
     this.type = "rook";
@@ -13,11 +13,11 @@ class Rook extends Piece {
   get startingCoord() {
     let x;
     if (this.color === "white") {
-      if (this.side === "right") x = 7;
+      if (this?.side === "right") x = 7;
       else x = 0;
       return [0, x];
     } else {
-      if (this.side === "right") x = 7;
+      if (this?.side === "right") x = 7;
       else x = 0;
       return [7, x];
     }
@@ -102,7 +102,7 @@ class Rook extends Piece {
         );
       }
       if (piecePinning.curSquare.row > this.curSquare.row) {
-        console.log("HELLO");
+        // console.log("HELLO");
         return allAvailableSquares.filter(
           (square) =>
             square.row <= piecePinning?.curSquare.row &&

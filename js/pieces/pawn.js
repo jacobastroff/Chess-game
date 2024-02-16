@@ -14,7 +14,7 @@ class Pawn extends Piece {
   }
   getAvailableSquares(
     chessboard,
-    _,
+    isCheckingAllSquares = undefined,
     isPinned = undefined,
     piecePinning = undefined,
     isCheckingLineOfSightKing = undefined
@@ -46,7 +46,8 @@ class Pawn extends Piece {
       ),
     ];
     if (
-      !nextSquare.isOccupied &&
+      nextSquare &&
+      !nextSquare?.isOccupied &&
       (!isPinned || (isPinned && piecePinning.curSquare.column === this.column))
     ) {
       allPotentialSquares.push(nextSquare);
@@ -54,17 +55,20 @@ class Pawn extends Piece {
         allPotentialSquares.push(nextNextSquare);
       }
     }
-
-    diagonals.forEach((square) => {
-      if (
-        square?.isOccupied &&
-        (!square?.pieceOccupyingName.startsWith(this.color) ||
-          isCheckingLineOfSightKing) &&
-        (!isPinned || piecePinning === square?.piece)
-      ) {
-        allPotentialSquares.push(square);
-      }
-    });
+    if (!isCheckingAllSquares) {
+      diagonals.forEach((square) => {
+        if (
+          square?.isOccupied &&
+          (!square?.pieceOccupyingName.startsWith(this.color) ||
+            isCheckingLineOfSightKing) &&
+          (!isPinned || piecePinning === square?.piece)
+        ) {
+          allPotentialSquares.push(square);
+        }
+      });
+    } else {
+      allPotentialSquares.push(...diagonals);
+    }
     const allAvailableSquares = [...new Set(allPotentialSquares)].filter(
       (square) => square
     );
@@ -110,7 +114,7 @@ class Pawn extends Piece {
     return [this.curSquare.square];
   }
   isCheckingKing(availableSquares, square = undefined, chessboard) {
-    console.log(availableSquares, this);
+    // console.log(availableSquares, this);
     if (!square) {
       return availableSquares.some(
         (square) =>
@@ -148,11 +152,24 @@ class Pawn extends Piece {
             square.pieceOccupyingName ===
               `${this.color === "white" ? "black" : "white"} king`
         );
-      console.log(status);
+      // console.log(status);
       square.isOccupied = isOccupied;
       square.pieceOccupyingName = pieceOccupyingName;
       return status;
     }
+  }
+  promoteTo(piece, square, group, chessboard) {
+    this.delete(group, chessboard);
+    piece.init(square, chessboard);
+    group.push(piece);
+  }
+  is_enpassaning(chessboard) {
+    return this.getOpposingPieces(chessboard).find(
+      (piece) =>
+        piece.curSquare?.square?.row ===
+          this.curSquare?.square?.row + 1 * (this.color === "white" ? -1 : 1) &&
+        piece.en_passant_status === true
+    );
   }
 }
 export default Pawn;

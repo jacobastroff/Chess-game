@@ -13,6 +13,9 @@ body {
   display: flex;
   justify-content: center;
 }
+.text {
+  position: relative;
+}
 .web-title {
   text-align: center;
   font-size: 4.8rem;
@@ -22,18 +25,21 @@ body {
 .description {
   text-align: center;
   font-size: 1.6rem;
+  margin-bottom: 3.2rem;
 }
 .chess-board {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   border: 3px solid black;
-  margin-top: 4.8rem;
+  margin-top: 1.2rem;
   /* position: relative; */
+  /* pointer-events: none; */
 }
 .square {
-  width: 6.5rem;
-  height: 6.5rem;
+  width: 5.5rem;
+  height: 5.5rem;
   transition: all 0.3s;
+  position: relative;
 }
 .square:hover {
   background-color: green;
@@ -55,11 +61,87 @@ body {
 }
 .piece {
   position: absolute;
-  width: 6.5rem;
-  height: 6.5rem;
+  width: 5.5rem;
+  height: 5.5rem;
   transform: translate(-50%, -50%);
   /* background-color: green; */
   transition: all 0.3s;
   background: transparent;
   pointer-events: none;
+  z-index: 1000;
+}
+.promotion-black {
+  margin-top: 1rem;
+}
+.promotion-white {
+  /* margin-bottom: 1rem; */
+}
+.disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+.promotion-container-container {
+  display: flex;
+  justify-content: center;
+  transition: all 0.5s;
+}
+.promotion-container {
+  display: flex !important;
+  background-color: #c4c4c4;
+  padding: 1rem;
+  border-radius: 10px;
+  /* display: inline-block; */
+  justify-content: center;
+  gap: 1rem;
+  height: 4rem;
+  /* margin-left: 2rem; */
+  /* margin-right: 2rem; */
+  align-items: center;
+  /* transform: scale(0) !important; */
+  transition: all 0.3s;
+  /* position: absolute; */
+
+  /* transform: translate(-50%, 100%); */
+  /* visibility: hidden; */
+}
+.promotion-piece {
+  /* width: 90% !important;
+  height: 90% !important; */
+  position: relative !important;
+  cursor: pointer;
+  transition: all 0.3s;
+  height: 4rem !important;
+}
+.promotion-piece:hover {
+  background-color: #aeaeae;
+}
+.message-box-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: -5rem;
+  right: 50%;
+  transform: translateX(50%);
+  /* transition: all 0.7s; */
+}
+.message-box {
+  display: inline-block;
+
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.error {
+  background-color: rgb(163, 2, 2);
+}
+.end-of-game {
+  background-color: rgb(2, 99, 20);
+  cursor: pointer;
+}
+.hidden {
+  visibility: hidden;
+}
+.message {
+  color: white;
+  font-size: 1.2rem;
 }
