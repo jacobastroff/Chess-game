@@ -253,6 +253,51 @@ class King extends Piece {
       piece.isCheckingKing(piece.getAvailableSquares(chessboard))
     );
   }
+  hasDrawOccured(chessboard) {
+    if (
+      !this.getSameColorPieces(chessboard).some(
+        (piece) =>
+          piece.filterOutDisabledSquares(
+            piece.getAvailableSquares(chessboard),
+            chessboard
+          ).length > 0
+      ) &&
+      !this.isInCheck(chessboard)
+    ) {
+      return true;
+    } else if (
+      !this.getSameColorPieces(chessboard)
+        .find((piece) => piece.type === "king")
+        .hasSufficientMaterial(chessboard) &&
+      !this.getOpposingPieces(chessboard)
+        .find((piece) => piece.type === "king")
+        .hasSufficientMaterial(chessboard)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  hasSufficientMaterial(chessboard) {
+    console.log(this.getSameColorPieces(chessboard));
+    return (
+      this.getSameColorPieces(chessboard).some(
+        (piece) =>
+          piece.type === "queen" ||
+          piece.type === "rook" ||
+          piece.type === "pawn"
+      ) ||
+      this.getSameColorPieces(chessboard).filter(
+        (piece) => piece.type === "bishop"
+      ).length > 1 ||
+      (this.getSameColorPieces(chessboard).find(
+        (piece) => piece.type === "bishop"
+      ) &&
+        this.getSameColorPieces(chessboard).filter(
+          (piece) => piece.type === "knight"
+        ).length > 1)
+    );
+  }
 }
 
 export default King;

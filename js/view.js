@@ -22,6 +22,11 @@ class ChessGame {
       .forEach((el) =>
         el.addEventListener("click", this.selectPromotionPiece.bind(this))
       );
+    document
+      .querySelector(".message-box-container")
+      .addEventListener("click", function () {
+        location.reload();
+      });
   }
   activateTurnSequence(e) {
     // this.disableBoard();
@@ -153,7 +158,7 @@ class ChessGame {
 
             // prevSquareEl.classList.remove("active-square");
           } else {
-            console.log("Piece cannot go there. Please try again ");
+            throw new Error("Piece cannot go there. Please try again");
             this.active_square_piece = null;
             // console.log(this.prevSquareEl, "HELLO");
           }
@@ -177,14 +182,28 @@ class ChessGame {
             this.active_square_piece = null;
             // this.switchTurn();
           } else {
-            console.log("Piece cannot go there. Please try again ");
+            throw new Error("Piece cannot go there. Please try again");
             this.active_square_piece = null;
           }
         }
       }
     }
     // } catch (err) {
-    //   console.error(err.message);
+    //   //   console.error(err.message);
+    //   if (
+    //     err.message === "No available piece on that square" ||
+    //     err.message === "Piece cannot go there. Please try again"
+    //   ) {
+    //     this.enableMessagePopup(err.message, true);
+    //   } else {
+    //     this.enableMessagePopup("Error. Please try again.", true);
+    //   }
+    //   setTimeout(
+    //     function () {
+    //       this.disableMessagePopup();
+    //     }.bind(this),
+    //     2000
+    //   );
     // }
   }
   switchTurn() {
@@ -201,12 +220,7 @@ class ChessGame {
         .find((piece) => piece.type === "king")
         .hasBeenCheckmated(this.chessboard)
     );
-    console.log(
-      this.active_square_piece
-        .getSameColorPieces(this.chessboard)
-        .find((piece) => piece.type === "bishop" && piece.side === "right")
-        .getAvailableSquares(this.chessboard)
-    );
+
     this.curColor = this.curColor === "white" ? "black" : "white";
     this.curColorPieces =
       this.curColor === "white" ? this.white_pieces : this.black_pieces;
@@ -220,6 +234,20 @@ class ChessGame {
       console.log(
         `Game over! ${this.curColor === "white" ? "Black" : "White"} won!`
       );
+      this.enableMessagePopup(
+        `Game over! ${this.curColor === "white" ? "Black" : "White"} won! `,
+        false
+      );
+    }
+    if (
+      this.curColorPieces
+        .find((piece) => piece.type === "king")
+        .hasDrawOccured(this.chessboard)
+    ) {
+      this.disableBoard();
+
+      console.log(`Game over! Draw!`);
+      this.enableMessagePopup(`Game over! Draw!`, false);
     }
     // USE MARKER TO VISUALLY SHOW WHO'S TURN IT IS
     //ALSO SCHOLARS MATE DOESNT WORK
@@ -238,6 +266,7 @@ class ChessGame {
   }
   initiatePromotionSequence() {
     this.disableBoard();
+    this.disableMessagePopup();
     this.enablePromotionModule(this.active_square_piece.color);
   }
   selectPromotionPiece(e) {
@@ -267,6 +296,26 @@ class ChessGame {
       this.enableBoard();
       this.disablePromotionModule(this.prevActiveSquarePiece.color);
     }
+  }
+  enableMessagePopup(message, isError) {
+    const messageBoxContainer = document.querySelector(
+      ".message-box-container"
+    );
+    const messageBox = messageBoxContainer.querySelector(".message-box");
+    messageBoxContainer.classList.remove("hidden");
+    if (isError) {
+      messageBox.classList.remove("end-of-game");
+      messageBox.classList.add("error");
+      messageBoxContainer.dataset.status = "error";
+    } else {
+      messageBox.classList.remove("error");
+      messageBox.classList.add("end-of-game");
+      messageBoxContainer.dataset.status = "end-of-game";
+    }
+    messageBox.querySelector(".message").textContent = message;
+  }
+  disableMessagePopup() {
+    document.querySelector(".message-box-container").classList.add("hidden");
   }
 }
 export default ChessGame;

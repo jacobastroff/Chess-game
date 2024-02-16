@@ -23,6 +23,10 @@ chessGame.black_pieces.forEach((piece) =>
   )
 );
 chessGame.setup();
+// chessGame.disableMessagePopup();
+// setTimeout(function () {
+//   chessGame.enableMessagePopup("Hello world", false);
+// }, 2000);
 // DELETE AFTERWARDS
 
 // console.log(black_pieces[0].getOpposingPieces(chessboard));
