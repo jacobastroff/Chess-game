@@ -235,7 +235,9 @@ class ChessGame {
         `Game over! ${this.curColor === "white" ? "Black" : "White"} won!`
       );
       this.enableMessagePopup(
-        `Game over! ${this.curColor === "white" ? "Black" : "White"} won! `,
+        `Game over! ${
+          this.curColor === "white" ? "Black" : "White"
+        } won! Click here!`,
         false
       );
     }
