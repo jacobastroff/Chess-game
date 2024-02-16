@@ -5,15 +5,15 @@ import Queen from "./pieces/queen.js";
 import King from "./pieces/king.js";
 import Pawn from "./pieces/pawn.js";
 const black_pieces = [
-  // new Rook("black", "left"),
-  // new Rook("black", "right"),
-  // new Knight("black", "left"),
-  // new Knight("black", "right"),
-  // new Bishop("black", "right"),
-  // new Bishop("black", "left"),
-  // new Queen("black"),
+  new Rook("black", "left"),
+  new Rook("black", "right"),
+  new Knight("black", "left"),
+  new Knight("black", "right"),
+  new Bishop("black", "right"),
+  new Bishop("black", "left"),
+  new Queen("black"),
   new King("black"),
-  // ...Array.from(new Array(8), (_, i) => new Pawn("black", i)),
+  ...Array.from(new Array(8), (_, i) => new Pawn("black", i)),
 ];
 const white_pieces = [
   // new Rook("white", "left"),
@@ -24,7 +24,7 @@ const white_pieces = [
   new Bishop("white", "left"),
   new Queen("white"),
   new King("white"),
-  // ...Array.from(new Array(8), (_, i) => new Pawn("white", i)),
+  ...Array.from(new Array(8), (_, i) => new Pawn("white", i)),
 ];
 // black_pieces.splice(-4, 1);
 export { white_pieces, black_pieces };
