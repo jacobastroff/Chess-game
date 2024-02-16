@@ -313,12 +313,14 @@ class ChessGame {
       messageBoxContainer.dataset.status = "end-of-game";
     }
     messageBox.querySelector(".message").textContent = message;
-    setTimeout(
-      function () {
-        this.disableMessagePopup();
-      }.bind(this),
-      2000
-    );
+    if (isError) {
+      setTimeout(
+        function () {
+          this.disableMessagePopup();
+        }.bind(this),
+        2000
+      );
+    }
   }
   disableMessagePopup() {
     document.querySelector(".message-box-container").classList.add("hidden");
