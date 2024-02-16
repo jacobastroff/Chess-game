@@ -48,6 +48,7 @@ body {
 .active-square {
   background-color: green !important;
 }
+
 .potential-square {
   box-shadow: inset 0 0 0 2px orange;
 }
@@ -58,6 +59,9 @@ body {
 }
 .white-square {
   background-color: #fff;
+}
+.check {
+  background-color: #b80505;
 }
 .piece {
   position: absolute;

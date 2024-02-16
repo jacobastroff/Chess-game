@@ -220,10 +220,24 @@ class ChessGame {
         .find((piece) => piece.type === "king")
         .getAvailableSquares(this.chessboard)
     );
+    this.chessboard
+      .getSquares()
+      .flat()
+      .forEach((square) => square.element.classList.remove("check"));
 
     this.curColor = this.curColor === "white" ? "black" : "white";
     this.curColorPieces =
       this.curColor === "white" ? this.white_pieces : this.black_pieces;
+    if (
+      this.curColorPieces
+        .find((piece) => piece.type === "king")
+        .isInCheck(this.chessboard)
+    ) {
+      console.log("YIPPPIE");
+      this.curColorPieces
+        .find((piece) => piece.type === "king")
+        .curSquare.square.element.classList.add("check");
+    }
     if (
       this.curColorPieces
         .find((piece) => piece.type === "king")
@@ -249,8 +263,9 @@ class ChessGame {
       this.disableBoard();
 
       console.log(`Game over! Draw!`);
-      this.enableMessagePopup(`Game over! Draw!`, false);
+      this.enableMessagePopup(`Game over! Draw! Click here!`, false);
     }
+
     // USE MARKER TO VISUALLY SHOW WHO'S TURN IT IS
     //ALSO SCHOLARS MATE DOESNT WORK
   }
