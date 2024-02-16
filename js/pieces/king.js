@@ -143,18 +143,18 @@ class King extends Piece {
     }
   }
   castle(rook, chessboard) {
-    if (this.color === "white") {
-      const leftRight =
-        rook.curSquare.column > this.curSquare.column ? "right" : "left";
-      const castlingRow = this.color === "white" ? 0 : 7;
-      if (leftRight === "right") {
-        this.moveTo(chessboard.getSquares()[castlingRow][6], chessboard);
-        rook.moveTo(chessboard.getSquares()[castlingRow][5], chessboard);
-      } else {
-        this.moveTo(chessboard.getSquares()[castlingRow][2], chessboard);
-        rook.moveTo(chessboard.getSquares()[castlingRow][3], chessboard);
-      }
+    // if (this.color === "white") {
+    const leftRight =
+      rook.curSquare.column > this.curSquare.column ? "right" : "left";
+    const castlingRow = this.color === "white" ? 0 : 7;
+    if (leftRight === "right") {
+      this.moveTo(chessboard.getSquares()[castlingRow][6], chessboard);
+      rook.moveTo(chessboard.getSquares()[castlingRow][5], chessboard);
+    } else {
+      this.moveTo(chessboard.getSquares()[castlingRow][2], chessboard);
+      rook.moveTo(chessboard.getSquares()[castlingRow][3], chessboard);
     }
+    // }
   }
   isBehindPinnedPiece(piece, chessboard) {
     const column = piece.curSquare.column;

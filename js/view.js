@@ -43,7 +43,7 @@ class ChessGame {
           this.active_square_piece === undefined ||
           this.active_square_piece.color !== this.curColor
         )
-          throw new Error("No available piece on that square");
+          this.enableMessagePopup("No available piece on that square", true);
         // console.log(`THIS IS ${this.prevSquareEl}`);
         this.prevSquareEl?.classList?.remove("active-square");
         this.prevAvailableSquares?.forEach((square) =>
@@ -158,7 +158,10 @@ class ChessGame {
 
             // prevSquareEl.classList.remove("active-square");
           } else {
-            throw new Error("Piece cannot go there. Please try again");
+            this.enableMessagePopup(
+              "Piece cannot go there. Please try again",
+              true
+            );
             this.active_square_piece = null;
             // console.log(this.prevSquareEl, "HELLO");
           }
@@ -182,7 +185,10 @@ class ChessGame {
             this.active_square_piece = null;
             // this.switchTurn();
           } else {
-            throw new Error("Piece cannot go there. Please try again");
+            this.enableMessagePopup(
+              "Piece cannot go there. Please try again",
+              true
+            );
             this.active_square_piece = null;
           }
         }
@@ -198,12 +204,7 @@ class ChessGame {
     //   } else {
     //     this.enableMessagePopup("Error. Please try again.", true);
     //   }
-    //   setTimeout(
-    //     function () {
-    //       this.disableMessagePopup();
-    //     }.bind(this),
-    //     2000
-    //   );
+
     // }
   }
   switchTurn() {
@@ -313,6 +314,12 @@ class ChessGame {
       messageBoxContainer.dataset.status = "end-of-game";
     }
     messageBox.querySelector(".message").textContent = message;
+    setTimeout(
+      function () {
+        this.disableMessagePopup();
+      }.bind(this),
+      2000
+    );
   }
   disableMessagePopup() {
     document.querySelector(".message-box-container").classList.add("hidden");
