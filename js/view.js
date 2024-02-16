@@ -210,7 +210,17 @@ class ChessGame {
     this.curColor = this.curColor === "white" ? "black" : "white";
     this.curColorPieces =
       this.curColor === "white" ? this.white_pieces : this.black_pieces;
+    if (
+      this.curColorPieces
+        .find((piece) => piece.type === "king")
+        .hasBeenCheckmated(this.chessboard)
+    ) {
+      this.disableBoard();
 
+      console.log(
+        `Game over! ${this.curColor === "white" ? "Black" : "White"} won!`
+      );
+    }
     // USE MARKER TO VISUALLY SHOW WHO'S TURN IT IS
     //ALSO SCHOLARS MATE DOESNT WORK
   }

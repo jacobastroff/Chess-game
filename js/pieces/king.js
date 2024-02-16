@@ -39,6 +39,7 @@ class King extends Piece {
         if (this?.canCastle(rook, chessboard)) {
           // console.log(`THIS IS ${this}`);
           const leftOrRightMultiplier = rook.curSquare.column === 8 ? 2 : -2;
+          console.log("Success");
           squaresWithCheck.push(
             allSquares.find(
               (square) =>
@@ -47,6 +48,8 @@ class King extends Piece {
                 square.row === (this.color === "white" ? 1 : 8)
             )
           );
+        } else {
+          console.log("Fail");
         }
       }.bind(this)
     );
@@ -78,7 +81,7 @@ class King extends Piece {
                 true
               )
             )
-          ) &&
+          ) ||
         this.getOpposingPieces(chessboard)
           .filter((piece) => piece.type === "pawn")
           .some((pawn) =>
@@ -100,7 +103,7 @@ class King extends Piece {
     const leftRight =
       rook.curSquare.column > this.curSquare.column ? "right" : "left";
     let squaresAvailable;
-    let neededAvailbleSquares;
+    const neededAvailbleSquares = 2;
     // console.log(rook.getAvailableSquares(chessboard), this.curSquare.column);
     if (leftRight === "right") {
       squaresAvailable = rook
@@ -110,8 +113,6 @@ class King extends Piece {
             square.row === (this.color === "white" ? 1 : 8) &&
             square.column > this.curSquare.column
         );
-
-      neededAvailbleSquares = 2;
     }
     if (leftRight === "left") {
       squaresAvailable = rook
@@ -119,21 +120,25 @@ class King extends Piece {
         .filter(
           (square) =>
             square.row === (this.color === "white" ? 1 : 8) &&
-            square.column < this.curSquare.column
+            (square.column === 4 || square.column === 3)
         );
-      neededAvailbleSquares = 3;
     }
     // console.log(squaresAvailable, neededAvailbleSquares);
     if (squaresAvailable.length >= neededAvailbleSquares) {
       if (this.isInCheck(chessboard)) return false;
+      console.log("King is not in check");
       if (
         squaresAvailable.some((square) => this.isInCheck(chessboard, square))
       ) {
+        console.log("Square is in check");
         return false;
       }
+      console.log("Square is not in check");
       if (!rook.firstMove || !this.firstMove) return false;
+      console.log("King and rook first move");
       return true;
     } else {
+      console.log("****");
       return false;
     }
   }
