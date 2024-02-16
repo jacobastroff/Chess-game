@@ -50,6 +50,12 @@ class ChessGame {
           square.element.classList.remove("potential-square")
         );
         // console.log(this.active_square_piece);
+        this.chessboard
+          .getSquares()
+          .flat()
+          .forEach((square) =>
+            square.element.classList.remove("active-square")
+          );
         e.target.classList.add("active-square");
         // console.log(e.target.classList);
         const king = this.curColorPieces.find((piece) => piece.type === "king");
