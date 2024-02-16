@@ -16,11 +16,11 @@ const black_pieces = [
   ...Array.from(new Array(8), (_, i) => new Pawn("black", i)),
 ];
 const white_pieces = [
-  // new Rook("white", "left"),
-  // new Rook("white", "right"),
+  new Rook("white", "left"),
+  new Rook("white", "right"),
   new Knight("white", "left"),
   new Knight("white", "right"),
-  // new Bishop("white", "right"),
+  new Bishop("white", "right"),
   new Bishop("white", "left"),
   new Queen("white"),
   new King("white"),
