@@ -171,22 +171,14 @@ class Piece {
       .find((square) => square.piece === this).piece = "";
   }
   pretendToMoveTo(square, chessboard) {
-    if (!square.isOccupied) {
-      this.curSquare.square.isOccupied = false;
-      this.curSquare.square.pieceOccupyingName = "";
-      this.curSquare.square.piece = undefined;
-      this.curSquare = {
-        row: square.row,
-        column: square.column,
-        square: square,
-      };
-
-      this.curSquare.square.isOccupied = true;
-      this.curSquare.square.pieceOccupyingName = `${this.color} ${this.type}`;
-      this.curSquare.square.piece = this;
-    } else {
+    // if (!square.isOccupied) {
+    this.curSquare.square.isOccupied = false;
+    this.curSquare.square.pieceOccupyingName = "";
+    this.curSquare.square.piece = undefined;
+    let pieceOccupying;
+    if (square.isOccupied) {
       if (square.piece.color !== this.color) {
-        const pieceOccupying = this.getOpposingPieces(chessboard).find(
+        pieceOccupying = this.getOpposingPieces(chessboard).find(
           (piece) => piece.curSquare.square === square
         );
         console.log(pieceOccupying);
@@ -205,17 +197,23 @@ class Piece {
           this.type === "king"
         ) {
           pieceOccupying.pretend_disabled_checking_king = false;
-        } else {
-          // BUG FIXER - DON'T KNOW WHAT THIS WILL DO
-
-          this.curSquare.square.isOccupied = false;
-          this.curSquare.square.pieceOccupyingName = "";
-          this.curSquare.square.piece = undefined;
         }
-        return pieceOccupying;
+
+        // }
       }
     }
+    this.curSquare = {
+      row: square.row,
+      column: square.column,
+      square: square,
+    };
+
+    this.curSquare.square.isOccupied = true;
+    this.curSquare.square.pieceOccupyingName = `${this.color} ${this.type}`;
+    this.curSquare.square.piece = this;
+    return pieceOccupying;
   }
+
   filterOutDisabledSquares(availableSquares, chessboard) {
     const curSquare = this.curSquare.square;
     return availableSquares.filter((square) => {
