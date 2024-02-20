@@ -205,6 +205,12 @@ class Piece {
           this.type === "king"
         ) {
           pieceOccupying.pretend_disabled_checking_king = false;
+        } else {
+          // BUG FIXER - DON'T KNOW WHAT THIS WILL DO
+
+          this.curSquare.square.isOccupied = false;
+          this.curSquare.square.pieceOccupyingName = "";
+          this.curSquare.square.piece = undefined;
         }
         return pieceOccupying;
       }
@@ -214,15 +220,27 @@ class Piece {
     const curSquare = this.curSquare.square;
     return availableSquares.filter((square) => {
       const pieceTaken = this.pretendToMoveTo(square, chessboard);
+      console.log(this);
       const status1 = !this.getSameColorPieces(chessboard)
         .find((piece) => piece.type === "king")
         .isInCheck(chessboard);
       pieceTaken?.hasOwnProperty("pretend_disabled_checking_king")
         ? (pieceTaken.pretend_disabled_checking_king = false)
         : null;
+      const opposingKing = this.getOpposingPieces(chessboard).find(
+        (piece) => piece.type === "king"
+      );
+      const status2 =
+        this.type === "king"
+          ? !(
+              Math.abs(square.column - opposingKing.curSquare.column) <= 1 &&
+              Math.abs(square.row - opposingKing.curSquare.row) <= 1
+            )
+          : true;
       this.pretendToMoveTo(curSquare, chessboard);
       pieceTaken?.pretendToMoveTo(square, chessboard);
-      return status1;
+
+      return status1 && status2;
     });
   }
 }

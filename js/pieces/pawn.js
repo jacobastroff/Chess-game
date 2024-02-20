@@ -116,11 +116,14 @@ class Pawn extends Piece {
   isCheckingKing(availableSquares, square = undefined, chessboard) {
     // console.log(availableSquares, this);
     if (!square) {
-      return availableSquares.some(
-        (square) =>
-          square.pieceOccupyingName.endsWith("king") &&
-          square.column !== this.curSquare.column &&
-          square.row !== this.curSquare.row
+      return (
+        !this.pretend_disabled_checking_king &&
+        availableSquares.some(
+          (square) =>
+            square.pieceOccupyingName.endsWith("king") &&
+            square.column !== this.curSquare.column &&
+            square.row !== this.curSquare.row
+        )
       );
     } else {
       const isOccupied = square.isOccupied;
@@ -155,7 +158,7 @@ class Pawn extends Piece {
       // console.log(status);
       square.isOccupied = isOccupied;
       square.pieceOccupyingName = pieceOccupyingName;
-      return status;
+      return !this.pretend_disabled_checking_king && status;
     }
   }
   promoteTo(piece, square, group, chessboard) {
